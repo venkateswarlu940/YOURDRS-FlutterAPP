@@ -16,7 +16,7 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
   void _show(BuildContext ctx) {
     showCupertinoModalPopup(
         context: ctx,
-        builder: (_) => CupertinoActionSheet(
+        builder: (ctctc) => CupertinoActionSheet(
           actions: [
             CupertinoActionSheetAction(
                 onPressed: openCamera, child: Text('Camera')),
@@ -25,9 +25,10 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
           ],
             cancelButton: CupertinoActionSheetAction(
               child: const Text('Cancel'),
-              isDefaultAction: true,
+              //isDefaultAction: true,
+              isDestructiveAction: true,
               onPressed: () {
-                Navigator.pop(context, 'Cancel');
+                Navigator.pop(ctctc);
               },
             )),
         );
