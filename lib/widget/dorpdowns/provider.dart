@@ -7,6 +7,9 @@ import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
 
 class ProviderDropDowns extends StatefulWidget {
+  final onTapOfProvider;
+  final String selectedProviderId;
+  ProviderDropDowns({@required this. onTapOfProvider, this.selectedProviderId});
   @override
   _ProviderState createState() =>  _ProviderState();
 }
@@ -23,6 +26,7 @@ class  _ProviderState extends State<ProviderDropDowns> {
   @override
   void initState() {
     super.initState();
+    _currentSelectedValue = widget.selectedProviderId;
   }
 
   @override
@@ -57,8 +61,9 @@ class  _ProviderState extends State<ProviderDropDowns> {
                         onChanged: (String newValue) {
                           setState(() {
                             _currentSelectedValue = newValue;
+                            widget.onTapOfProvider(newValue);
                             state.didChange(newValue);
-                            print(_currentSelectedValue);
+                           // print(_currentSelectedValue);
                           });
                         },
                         items: data.map((item) {

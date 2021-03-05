@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'allattachment_screen.dart';
-///-----------------------This is ExternalAttachment home page
+
+
+///-----------------------This is ExternalAttachment home page this is the main page for submitne class and all attachment class
+
+
 class ExternalAttachment extends StatefulWidget {
   @override
   _ExternalAttachmentStat createState() => _ExternalAttachmentStat();
@@ -69,7 +73,6 @@ class _ExternalAttachmentStat extends State<ExternalAttachment > {
                   decoration: BoxDecoration(
                       boxShadow: [new BoxShadow(
                         color: Colors.white,
-
                       ),]
                   ),
                 ),
@@ -77,11 +80,8 @@ class _ExternalAttachmentStat extends State<ExternalAttachment > {
               Expanded(
                 child: TabBarView(
                   children: [
-                    // BlocProvider(
-                    //     create:(BuildContext,context)
-                    // ),
-                    SubmitNew(),//This for SubmitNew class where we write the data
-                    Allattachment(),//This for AllAttachment class where we write the data
+                    SubmitNew(),//This for SubmitNew class where it contains all details
+                    Allattachment(),//This for AllAttachment class where it contains the all the code for display the images
                   ],
                 ),
               ),

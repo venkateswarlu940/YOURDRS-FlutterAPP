@@ -7,6 +7,9 @@ import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
 
 class LocationDropDown extends StatefulWidget {
+  final onTapOfLocation;
+  final String selectedLocationId;
+  LocationDropDown({@required this.onTapOfLocation, this.selectedLocationId});
   @override
   _LocationState createState() => _LocationState();
 }
@@ -22,7 +25,7 @@ class _LocationState extends State<LocationDropDown> {
   @override
   void initState() {
     super.initState();
-    // this.getLocation();
+    _currentSelectedValue = widget.selectedLocationId;
   }
 
   @override
@@ -57,8 +60,9 @@ class _LocationState extends State<LocationDropDown> {
                         onChanged: (String newValue) {
                           setState(() {
                             _currentSelectedValue = newValue;
+                            widget.onTapOfLocation(newValue);
                             state.didChange(newValue);
-                            print(_currentSelectedValue);
+                            //print(_currentSelectedValue);
                           });
                         },
                         items: data.map((item) {

@@ -7,8 +7,10 @@ import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/document-field.dart';
 import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/location_field.dart';
 import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/practice_field.dart';
 import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/provider.dart';
+import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/dateofbirth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 
 ///------------------------------This is the SubmitNew class and this class contains all the fields for ExternalAttachment screen
@@ -18,6 +20,10 @@ class SubmitNew extends StatefulWidget {
 }
 
 class _SubmitNewState extends State<SubmitNew> {
+  String _selectedLocation;
+  String  _selectedProvider;
+  String _selectedDate;
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController text1=TextEditingController();
   TextEditingController text2=TextEditingController();
@@ -36,7 +42,7 @@ class _SubmitNewState extends State<SubmitNew> {
                 Container(
                   child:  Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child:Text(
+                    child: Text(
                       AppStrings.practice,
                       style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
                         color: CustomizedColors.practice_textColor,
@@ -65,7 +71,13 @@ class _SubmitNewState extends State<SubmitNew> {
                 ),
                   Padding(
                     padding: const EdgeInsets.only(top:6),
-                    child:  LocationDropDown(),
+                    child:  LocationDropDown(
+                      onTapOfLocation: (String newValue) {
+                       _selectedLocation= newValue;
+
+                        print('from UI:' + newValue);
+                    },
+                    ),
                 ),
                 //LocationDropDown(),
 
@@ -84,7 +96,13 @@ class _SubmitNewState extends State<SubmitNew> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top:6),
-                  child:  ProviderDropDowns(),
+                  child:  ProviderDropDowns(
+                    onTapOfProvider: (String newValue) {
+                      _selectedProvider= newValue;
+
+                      print('from UI:' + newValue);
+                    },
+                  ),
                 ),
 
                 ///--------------------First Name Field
@@ -192,7 +210,8 @@ class _SubmitNewState extends State<SubmitNew> {
                       Container(
                         child:  Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child:Text(
+                          child:
+                          Text(
                             AppStrings.dateofbirth,
                             style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
                               color: CustomizedColors.practice_textColor,
@@ -203,31 +222,18 @@ class _SubmitNewState extends State<SubmitNew> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10,right: 8),
-                        child: Container(
+                        child:
+                        Container(
                           height: 55,
                           width: MediaQuery.of(context).size.width * 0.85,
                           //color: Colors.yellow,
                           //color: Colors.yellow,
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter value';
-                              }
-                              return null;
+                          child: DateOfBirth(
+                            dobSelect: (String newValue) {
+                              _selectedDate= newValue;
+
+                              print('from UI:' + newValue);
                             },
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              //errorText: validationService.dob.error,
-                              contentPadding: EdgeInsets.all(20),
-                              hintText: AppStrings.hint_dateofbirth,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0)
-                              ),
-                            ),
-                            // onChanged: (String value) {
-                            //   validationService.changeDOB(value);
-                            // },
                           ),
                         ),
                       ),

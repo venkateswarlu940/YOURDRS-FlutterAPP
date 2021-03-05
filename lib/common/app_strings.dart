@@ -4,7 +4,7 @@ class AppStrings {
   static const signIn = "Signin";
   static const tryAgain = "tryAgain";
   static const notNow = "notNow";
-  ///------------------added by team3
+  ///----------------------------------------added by team3
   static const date = "02-12-2021";
   static const pc_md = "PC_MD";
   static const kdhsjjkc = "Kdhhjvvk, kdhskfhk";

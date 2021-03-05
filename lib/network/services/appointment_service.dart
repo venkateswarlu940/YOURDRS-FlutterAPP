@@ -6,7 +6,8 @@ import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
 
 
 class Services {
-  static const String url = 'https://jsonplaceholder.typicode.com/users';
+
+  //static const String url = 'https://jsonplaceholder.typicode.com/users';
 
 //getUsers service method
 //   static Future<List<Patient>> getUsers() async {
