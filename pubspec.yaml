@@ -34,6 +34,7 @@ dependencies:
   flutter_form_builder: ^3.4.1
   #cupertino sheet
   image_picker: any
+  file_picker: any
   # Date Formatter
   intl: any
   # Network client

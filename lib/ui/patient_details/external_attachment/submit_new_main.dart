@@ -332,10 +332,12 @@ class _SubmitNewState extends State<SubmitNew> {
                   ),
                 ),
 
+
                 ///----------------add image/take image
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: CameraActionSheet(),
+                  child:
+                  CameraActionSheet(),
                 ),
 
                 ///-------------------buttons
