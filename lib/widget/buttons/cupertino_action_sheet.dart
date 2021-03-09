@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
-import 'package:YOURDRS_FlutterAPP/widget/buttons/material_buttons.dart';
+import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
 import 'package:file_picker/file_picker.dart';
+//import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class CameraActionSheet extends StatefulWidget {
   @override
@@ -30,15 +32,18 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
   FileType fileType;
   bool imageVisible=true;
   File image;
+  ///---------------to open cupertino action sheet
   void _show(BuildContext ctx) {
     showCupertinoModalPopup(
         context: ctx,
         builder: (ctctc) => CupertinoActionSheet(
           actions: [
             CupertinoActionSheetAction(
-                onPressed: openCamera, child: Text('Camera')),
+                onPressed:() {openCamera();
+                Navigator.pop(ctctc);}, child: Text('Camera')),
             CupertinoActionSheetAction(
-                onPressed: openGallery, child: Text('Open Gallery')),
+                onPressed: (){openGallery();
+                Navigator.pop(ctctc);}, child: Text('Open Gallery')),
           ],
             cancelButton: CupertinoActionSheetAction(
               child: const Text('Cancel'),
@@ -50,25 +55,25 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
             )),
         );
   }
-
+///-----------------to open the camera in phone
   Future openCamera() async {
     image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
-    String path = image.path;
-    // createFileName(path);
+    //String path = image.path;
+    //createFileName(path);
     setState(() {
       image;
       widgetVisible = true;
       visible = false;
     });
   }
-
+///---------------------to open the gallery in phone
   Future openGallery() async {
     setState(() => isLoadingPath = true);
     try {
       if (!isMultiPick) {
         filepath = null;
-        paths = await FilePicker.g(
+        paths = await FilePicker.getMultiFilePath(
             type: fileType != null ? fileType : FileType.image,
             allowedExtensions: extensions);
         print(paths);
@@ -95,7 +100,7 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
         widgetVisible = false;
       });
     } on PlatformException catch (e) {
-      print(AppStrings.filePathNotFound + e.toString());
+      print("file not found" + e.toString());
     }
   }
 
@@ -129,114 +134,140 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
                       ),
                       height: 100,
                       width: MediaQuery.of(context).size.width * 0.85,
-                      child: Center(
-                        child: Container(
-                            height: 130,
-                            width: 150,
-// color: CustomizedColors.homeSubtitleColor,
-                            child: Stack(children: [
-                              Positioned(
-                                right: 2,
-                                top: -1,
-                                child: Visibility(
-                                  visible: imageVisible,
-                                  child: IconButton(
-                                    icon: new Icon(Icons.close),
-                                    onPressed: ()
-                                    {
-                                      setState(() {
-                                        image=null;
-                                        imageVisible=false;
+                      // color: Colors.green,
 
-                                      });
-                                    },
-                                  ),
+                      child: Center(
+
+                        // color: CustomizedColors.homeSubtitleColor,
+                          child: Stack(children: [
+
+                            image == null
+                                ? Text("no image selected")
+                                : Image.file(
+                              image,
+                              fit: BoxFit.contain,
+                            ),
+                            Positioned(
+                              right: -10,
+                              top: -5,
+                              child: Visibility(
+                                visible: imageVisible,
+                                child: IconButton(
+                                  icon: new Icon(Icons.close,color: CustomizedColors.signInButtonTextColor,),
+                                  onPressed: ()
+                                  {
+                                    setState(() {
+                                      image=null;
+                                      imageVisible=false;
+
+                                    });
+                                  },
                                 ),
                               ),
-                              image == null
-                                  ? Text("no image selected")
-                                  : Image.file(
-                                image,
-                                fit: BoxFit.contain,
-                              ),
-                            ])),
-                      ),
-                    )
+                            ),
+
+                          ])),
+                    ),
+
                   ]),
                 ],
               ),
             ),
           ),
+ ///------------------display the gallery for selecting the images
           Visibility(
-            visible: visible,
-            child: Column(children: [
-              Builder(
-                builder: (BuildContext context) => isLoadingPath
-                    ? Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: const CircularProgressIndicator())
-                    : filepath != null || paths != null
-                    ? new Container(
-
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color:
-                      CustomizedColors.homeSubtitleColor,
+              visible: visible,
+              child: Column(children: [
+                Builder(
+                  builder: (BuildContext context) => isLoadingPath
+                      ? Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: const CircularProgressIndicator())
+                      : filepath != null || (paths != null && paths.values!=null && paths.values.isNotEmpty)
+                      ? new Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color:
+                        CustomizedColors.homeSubtitleColor,
+                      ),
                     ),
-                  ),
-// padding: const EdgeInsets.only(bottom: 30.0),
-                  height: 100,
-                  child: new ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount:
-                    paths != null && paths.isNotEmpty
-                        ? paths.length
-                        : 1,
-                    itemBuilder:
-                        (BuildContext context, index) {
-                      final bool isMultiPath =
-                          paths != null && paths.isNotEmpty;
-                      final filePath1 = isMultiPath
-                          ? paths.values
-                          .toList()[index]
-                          .toString()
-                          : filepath;
+                    //   padding: const EdgeInsets.only(bottom: 30.0),
+                    height: 100,
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: new ListView.separated(
+                      scrollDirection: Axis.horizontal,
 
-                      return Container(
-                        color: CustomizedColors.homeSubtitleColor,
-                        margin: const EdgeInsets.all(10),
-                        child: Stack(children: [
-                          filepath==null?
-                          Text("no image selected"):
-                          Image.file(
-                            File(filepath),
-                            fit: BoxFit.contain,
-                          ),
-                          Positioned(
-                            right: -10,
-                            top: -5,
-                            child: IconButton(
-                              icon: new Icon(Icons.close),
-                              onPressed: ()
-                              {
-                                setState(() {
-// filepath=null;
-                                });
-                              },
+                      itemCount:
+                      paths != null && paths.isNotEmpty
+                          ? paths.length
+                          : 1,
+                      itemBuilder:
+                          (BuildContext context, index) {
+                        final bool isMultiPath =
+                            paths != null && paths.isNotEmpty;
+                        final filePath1 = isMultiPath
+                            ? paths.values
+                            .toList()[index]
+                            .toString()
+                            : filepath;
+                        print(filePath1);
+                        return Container(
+                          color: CustomizedColors.homeSubtitleColor,
+                          margin: const EdgeInsets.all(8),
+                          child: Stack(children: [
+
+                            filePath1 != null
+                                ? Image.file(
+                              File(filePath1),
+                              fit: BoxFit.contain,
+                            )
+                                : Container(),
+
+                            Positioned(
+                              right: -10,
+                              top: -5,
+                              child:  IconButton(
+                                icon: new Icon(Icons.close,
+                                  //color: CustomizedColors.signInButtonTextColor,
+                                ),
+                                onPressed: ()
+                                {
+                                  setState(() {
+                                    // paths.values.toList().removeAt(index);
+                                    var filename= basename(paths.values.toList()[index]);
+                                    print('remove filename $fileName');
+                                    paths.remove(filename);
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                        ]),
-                      );
-                    },
-                    separatorBuilder:
-                        (BuildContext context, int index) =>
-                    new Divider(),
+                          ]),
+                        );
+                      },
+                      separatorBuilder:
+                          (BuildContext context, int index) =>
+                      new Divider(),
+                    ),
+                  )
+                      : new Container(
+
                   ),
-                )
-                    : new Container(),
+                ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // //storing images into separate folder
+                // RaisedBtn(
+                //     text: AppStrings.submitImages,
+                //     onPressed: () {
+                //       setState(() {
+                //         widgetVisible = false;
+                //         visible = false;
+                //       });
+                //     },
+                //     iconData: Icons.image),
+              ],
               ),
-            ]
-            ),
           ),
           SizedBox(height: 15),
           CupertinoPageScaffold(

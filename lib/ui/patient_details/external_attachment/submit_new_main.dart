@@ -25,8 +25,9 @@ class _SubmitNewState extends State<SubmitNew> {
   String _selectedDate;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController text1=TextEditingController();
-  TextEditingController text2=TextEditingController();
+  TextEditingController firstname=TextEditingController();
+  TextEditingController lastname=TextEditingController();
+  TextEditingController description= TextEditingController();
   List<bool> _isSelected = [true, false];
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,6 @@ class _SubmitNewState extends State<SubmitNew> {
                   padding: const EdgeInsets.only(top:6),
                   child:  PracticeDropDown(),
                 ),
-
                 ///--------------------Location Field
                 Container(
                   child:  Padding(
@@ -72,15 +72,13 @@ class _SubmitNewState extends State<SubmitNew> {
                   Padding(
                     padding: const EdgeInsets.only(top:6),
                     child:  LocationDropDown(
-                      onTapOfLocation: (String newValue) {
-                       _selectedLocation= newValue;
-
-                        print('from UI:' + newValue);
-                    },
+                    //   onTapOfLocation: (String newValue) {
+                    //    _selectedLocation= newValue;
+                    //
+                    //     print('from UI:' + newValue);
+                    // },
                     ),
                 ),
-                //LocationDropDown(),
-
                 ///---------------------Provider Field
                 Container(
                   child:  Padding(
@@ -104,9 +102,7 @@ class _SubmitNewState extends State<SubmitNew> {
                     },
                   ),
                 ),
-
                 ///--------------------First Name Field
-
                 Container(
                   child: Column(
                     children: [
@@ -129,7 +125,7 @@ class _SubmitNewState extends State<SubmitNew> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           //color: Colors.yellow,
                           child: TextFormField(
-                            controller: text1,
+                            controller: firstname,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return AppStrings.validatorfield;
@@ -177,7 +173,7 @@ class _SubmitNewState extends State<SubmitNew> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           //color: Colors.yellow,
                           child: TextFormField(
-                            controller: text2,
+                            controller: lastname,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return AppStrings.validatorfield;
@@ -202,7 +198,6 @@ class _SubmitNewState extends State<SubmitNew> {
                     ],
                   ),
                 ),
-
                 ///------------------------Date of birth Field
                 Container(
                   child: Column(
@@ -240,7 +235,6 @@ class _SubmitNewState extends State<SubmitNew> {
                     ],
                   ),
                 ),
-
                 ///------------------Document type Field
                 Container(
                   child:  Padding(
@@ -258,7 +252,6 @@ class _SubmitNewState extends State<SubmitNew> {
                   padding: const EdgeInsets.only(top:0),
                   child:  DocumentDropDown(),
                 ),
-
                 ///-----------------------emergency Field
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
@@ -286,7 +279,6 @@ class _SubmitNewState extends State<SubmitNew> {
                     width: 150,
                   ),
                 ),
-
                 ///------------------Description Field
                 Container(
                   child: Column(
@@ -310,6 +302,7 @@ class _SubmitNewState extends State<SubmitNew> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           //color: Colors.yellow,
                           child: TextFormField(
+                            controller: description,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return AppStrings.validatorfield;
@@ -331,8 +324,6 @@ class _SubmitNewState extends State<SubmitNew> {
                     ],
                   ),
                 ),
-
-
                 ///----------------add image/take image
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
@@ -360,7 +351,10 @@ class _SubmitNewState extends State<SubmitNew> {
                                 //color: Colors.blue,
                                 child: RaisedBttn(
                                   onPressed: () {
-                                    //
+                                    firstname.clear();
+                                    lastname.clear();
+                                    description.clear();
+
                                   },
                                   text: AppStrings.cancel,
                                   button_color: CustomizedColors

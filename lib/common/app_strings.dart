@@ -39,7 +39,7 @@ class AppStrings {
 class ApiUrlConstants {
   // for getting Locations//
   static const getLocation =
-      AppConstants.dioBaseUrl + "api/Schedule/GetMemberLocations";
+      AppConstants.dioBaseUrl + "api/MasterData/GetLocationsForSelectedPractices";
   // for getting Provider
   static const getProviders =
       AppConstants.dioBaseUrl + "api/Schedule/GetAssociatedProvider";

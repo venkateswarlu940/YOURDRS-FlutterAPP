@@ -31,18 +31,18 @@ class Services {
 
   //getLocation service method//
 
-  Future<Location> getLocation() async {
+  Future<Locations> getLocation() async {
     try {
       var endpointUrl = ApiUrlConstants.getLocation;
       Map<String, String> queryParams = {
-        'MemberId': '1',
+        'LoggedInMemberId': '1','PracticeIdList': '1',
       };
       String queryString = Uri(queryParameters: queryParams).query;
       var requestUrl = endpointUrl + '?' + queryString;
       final response = await http.get(Uri.encodeFull(requestUrl),
           headers: {"Accept": "application/json"});
       if (response.statusCode == 200) {
-        Location location = parseLocation(response.body);
+        Locations location = parseLocation(response.body);
         // print(list);
         return location;
       } else {
@@ -53,37 +53,37 @@ class Services {
     }
   }
 
-  static Location parseLocation(String responseBody) {
-    final Location location = Location.fromJson(json.decode(responseBody));
+  static Locations parseLocation(String responseBody) {
+    final Locations location = Locations.fromJson(json.decode(responseBody));
     return location;
   }
 
 //getProviders service
-  Future<Provider> getProviders() async {
-    try {
-      var endpointUrl = ApiUrlConstants.getProviders;
-      Map<String, String> queryParams = {
-        'MemberId': '1',
-      };
-      String queryString = Uri(queryParameters: queryParams).query;
-      var requestUrl = endpointUrl + '?' + queryString;
-      final response = await http.get(Uri.encodeFull(requestUrl),
-          headers: {"Accept": "application/json"});
-      if (response.statusCode == 200) {
-        Provider provider = parseProviders(response.body);
-        // print(list);
-        return provider;
-      } else {
-        throw Exception("Error");
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  static Provider parseProviders(String responseBody) {
-    final Provider provider = Provider.fromJson(json.decode(responseBody));
-    return provider;
+//   Future<Provider> getProviders() async {
+//     try {
+//       var endpointUrl = ApiUrlConstants.getProviders;
+//       Map<String, String> queryParams = {
+//         'MemberId': '1',
+//       };
+//       String queryString = Uri(queryParameters: queryParams).query;
+//       var requestUrl = endpointUrl + '?' + queryString;
+//       final response = await http.get(Uri.encodeFull(requestUrl),
+//           headers: {"Accept": "application/json"});
+//       if (response.statusCode == 200) {
+//         Provider provider = parseProviders(response.body);
+//         // print(list);
+//         return provider;
+//       } else {
+//         throw Exception("Error");
+//       }
+//     } catch (e) {
+//       throw Exception(e.toString());
+//     }
+//   }
+//
+//   static Provider parseProviders(String responseBody) {
+//     final Provider provider = Provider.fromJson(json.decode(responseBody));
+//     return provider;
   }
 
   // postApiMethod() async {
@@ -105,4 +105,3 @@ class Services {
   //   var jsonResponse = jsonDecode(response.body);
   //   print(jsonResponse);
   // }
-}

@@ -33,8 +33,8 @@ class  _ProviderState extends State<ProviderDropDowns> {
   void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    Provider provider = await apiServices.getProviders();
-    data = provider.providerList;
+    //Provider provider = await apiServices.getProviders();
+   // data = provider.providerList;
     setState(() {});
   }
   @override
