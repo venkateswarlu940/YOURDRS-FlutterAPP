@@ -1,10 +1,10 @@
-class Locations {
+class ExternalLocation {
   Header header;
   List<LocationList> locationList;
 
-  Locations({this.header, this.locationList});
+  ExternalLocation({this.header, this.locationList});
 
-  Locations.fromJson(Map<String, dynamic> json) {
+  ExternalLocation.fromJson(Map<String, dynamic> json) {
     header =
     json['header'] != null ? new Header.fromJson(json['header']) : null;
     if (json['locationList'] != null) {
@@ -170,5 +170,9 @@ class LocationList {
     data['country'] = this.country;
     data['distanceInMiles'] = this.distanceInMiles;
     return data;
+  }
+  @override
+  String toString() {
+    return 'PracticeList{name: $name,id: $id}';
   }
 }

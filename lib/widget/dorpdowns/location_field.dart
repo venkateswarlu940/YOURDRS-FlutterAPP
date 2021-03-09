@@ -1,50 +1,44 @@
-
-import 'package:YOURDRS_FlutterAPP/widget/buttons/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
 
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
-import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
-
-import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
-import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
-import 'package:flutter/material.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
-
-
- class LocationDropDown extends StatefulWidget {
-   // final onTapOfLocation;
-   // final String selectedLocationId;
-   // LocationDropDown({@required this.onTapOfLocation, this.selectedLocationId});
-   // @override
-  _LocationState createState() => _LocationState();
+ class Locations extends StatefulWidget {
+   @override
+   _LocationsState createState() => _LocationsState();
  }
 
- class _LocationState extends State<LocationDropDown> {
- // bool asTabs = false;
+ class _LocationsState extends State<Locations> {
+  bool asTabs = false;
   Services apiServices = Services();
-  LocationList locationList;
- List data = List();
-  // List<LocationList> _list=[];
-  @override
-   void initState() {
-     super.initState();
-     //_currentSelectedValue = widget.selectedLocationId;
-   }
+  LocationList locationsList;
+  //List<LocationList> _list=[];
+  List data = List();
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    Locations location = await apiServices.getLocation();
-    data = location.locationList;
+    ExternalLocation externalLocation = await apiServices.getExternalLocation();
+    data = externalLocation.locationList;
 
 //_currentSelectedValue=data;
     setState(() {});
+  }
+
+  List<Widget> get appBarActions {
+    return ([
+      Center(child: Text("Tabs:")),
+      Switch(
+        activeColor: Colors.white,
+        value: asTabs,
+        onChanged: (value) {
+          setState(() {
+            asTabs = value;
+          });
+        },
+      )
+    ]);
   }
 
   @override
@@ -54,35 +48,94 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
       padding: const EdgeInsets.all(10),
       width: 320,
       child: SearchableDropdown.single(
-        hint: Text('Select Location'),
-        label: Text('Location',style: TextStyle(
-            fontSize: 16,fontWeight: FontWeight.bold,
-            color: Colors.black
-        ),),
-        items: data.map((item) {
+        items: data.map((item)
+        {
           return DropdownMenuItem<LocationList>(
               child: Text(
-                item.locationName,
+                item.name,
                 overflow: TextOverflow.ellipsis,
               ),
               value:item
           );
         }).toList(),
         isExpanded: true,
-        value: locationList,
+        value: locationsList,
         searchHint: new Text('Select ', style: new TextStyle(fontSize: 20)),
         onChanged: (value){
           setState(() {
-            locationList=value;
-            print('locationList $locationList');
+            locationsList=value;
+            print('locationsList $locationsList');
           });
         },
       ),
     );
   }
 }
-
-
+// class Locations extends StatefulWidget {
+//   @override
+//   _LocationsState createState() => _LocationsState();
+// }
+//
+// class _LocationsState extends State<Locations> {
+//   var _currentSelectedValue2;
+//   var _currencies2 = ["bangalore", "hyderabad"];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       //color: Colors.yellow,
+//       child: Column(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.only(right: 280,top: 20),
+//             child:Text(
+//               AppStrings.locations,
+//               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
+//                 color: CustomizedColors.practice_textColor,
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding:const EdgeInsets.only(top: 15),
+//             child:   Container(
+//                 height: 55,
+//                 width: 350,
+//                 child:
+//                 FormField<String>(
+//                   builder: (FormFieldState<String> state) {
+//                     return InputDecorator(
+//                       decoration: InputDecoration(
+//                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+//                       isEmpty: _currentSelectedValue2 == '',
+//                       child: DropdownButtonHideUnderline(
+//                         child: DropdownButton<String>(
+//                           hint: Text("select"),
+//                           value: _currentSelectedValue2,
+//                           isDense: true,
+//                           onChanged: (String newValue) {
+//                             setState(() {
+//                               _currentSelectedValue2 = newValue;
+//                               state.didChange(newValue);
+//                             });
+//                           },
+//                           items: _currencies2.map((String value) {
+//                             return DropdownMenuItem<String>(
+//                               value: value,
+//                               child: Text(value),
+//                             );
+//                           }).toList(),
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 )
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
 
 
 

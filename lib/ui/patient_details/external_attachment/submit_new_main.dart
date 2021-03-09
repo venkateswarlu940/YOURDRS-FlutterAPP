@@ -11,6 +11,7 @@ import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/dateofbirth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 
 ///------------------------------This is the SubmitNew class and this class contains all the fields for ExternalAttachment screen
@@ -59,7 +60,7 @@ class _SubmitNewState extends State<SubmitNew> {
                 ///--------------------Location Field
                 Container(
                   child:  Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 10),
                     child:Text(
                       AppStrings.locations,
                       style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
@@ -70,8 +71,8 @@ class _SubmitNewState extends State<SubmitNew> {
                   width: MediaQuery.of(context).size.width * 0.87,
                 ),
                   Padding(
-                    padding: const EdgeInsets.only(top:6),
-                    child:  LocationDropDown(
+                    padding: const EdgeInsets.only(top:0),
+                    child:  Locations(
                     //   onTapOfLocation: (String newValue) {
                     //    _selectedLocation= newValue;
                     //
@@ -253,30 +254,35 @@ class _SubmitNewState extends State<SubmitNew> {
                   child:  DocumentDropDown(),
                 ),
                 ///-----------------------emergency Field
+                Container(
+                  child:  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child:Text(
+                      AppStrings.emergencyetext,
+                      style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
+                        color: CustomizedColors.practice_textColor,
+                      ),
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.87,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child:
-                  Container(
-                    child:
-                    ToggleButtons(
-                      children: <Widget>[
-                        Container(
-                          child: Text('Yes'),
-                          width: 50,
-                        ),
-                        Container(
-                          child: Text('No'),
-                          width: 50,
-                        ),
-                      ],
-                      isSelected: _isSelected,
-                      onPressed: (int index) {
-                        setState(() {
-                          _isSelected[index] = !_isSelected[index];
-                        });
+                  child: Center(
+                    child: ToggleSwitch(
+                      minWidth: 130.0,
+                      minHeight: 45,
+                      cornerRadius: 10.0,
+                      activeBgColor: CustomizedColors.accentColor,
+                      activeFgColor: CustomizedColors.whitetoggleTextColor,
+                      inactiveBgColor: Colors.grey[300],
+                      inactiveFgColor: Colors.grey[700],
+                      labels: ['YES', 'NO'],
+                      icons: [Icons.check_circle, Icons.cancel_rounded],
+                      onToggle: (toggleIndex) {
+                        print('switched to: $toggleIndex');
                       },
                     ),
-                    width: 150,
                   ),
                 ),
                 ///------------------Description Field

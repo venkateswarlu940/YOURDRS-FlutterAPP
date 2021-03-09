@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/document.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/practice.dart';
 import 'package:http/http.dart' as http;
 import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
 import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
@@ -29,22 +31,22 @@ class Services {
   //   return parsed.map<Patient>((json) => Patient.fromJson(json)).toList();
   // }
 
-  //getLocation service method//
+  ///------------getPractice service method
 
-  Future<Locations> getLocation() async {
+  Future<Practices> getPratices() async {
     try {
-      var endpointUrl = ApiUrlConstants.getLocation;
+      var endpointUrl = ApiUrlConstants.getPractices;
       Map<String, String> queryParams = {
-        'LoggedInMemberId': '1','PracticeIdList': '1',
+        'LoggedInMemberId': '1',
       };
       String queryString = Uri(queryParameters: queryParams).query;
       var requestUrl = endpointUrl + '?' + queryString;
       final response = await http.get(Uri.encodeFull(requestUrl),
           headers: {"Accept": "application/json"});
       if (response.statusCode == 200) {
-        Locations location = parseLocation(response.body);
-        // print(list);
-        return location;
+        Practices practice= parsePractices(response.body);
+       // print(data);
+        return practice;
       } else {
         throw Exception("Error");
       }
@@ -53,37 +55,64 @@ class Services {
     }
   }
 
-  static Locations parseLocation(String responseBody) {
-    final Locations location = Locations.fromJson(json.decode(responseBody));
-    return location;
+  static Practices parsePractices(String responseBody) {
+    final Practices practice = Practices.fromJson(json.decode(responseBody));
+    return practice;
+  }
+  ///-------------ExternalLocation service method
+  Future<ExternalLocation> getExternalLocation() async {
+    try {
+      var endpointUrl = ApiUrlConstants.getExternalLocation;
+      Map<String, String> queryParams = {
+        'LoggedInMemberId': '1',
+      };
+      String queryString = Uri(queryParameters: queryParams).query;
+      var requestUrl = endpointUrl + '?' + queryString;
+      final response = await http.get(Uri.encodeFull(requestUrl),
+          headers: {"Accept": "application/json"});
+      if (response.statusCode == 200) {
+        ExternalLocation externalLocation= parseExternalLocation(response.body);
+        // print(data);
+        return externalLocation;
+      } else {
+        throw Exception("Error");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
-//getProviders service
-//   Future<Provider> getProviders() async {
-//     try {
-//       var endpointUrl = ApiUrlConstants.getProviders;
-//       Map<String, String> queryParams = {
-//         'MemberId': '1',
-//       };
-//       String queryString = Uri(queryParameters: queryParams).query;
-//       var requestUrl = endpointUrl + '?' + queryString;
-//       final response = await http.get(Uri.encodeFull(requestUrl),
-//           headers: {"Accept": "application/json"});
-//       if (response.statusCode == 200) {
-//         Provider provider = parseProviders(response.body);
-//         // print(list);
-//         return provider;
-//       } else {
-//         throw Exception("Error");
-//       }
-//     } catch (e) {
-//       throw Exception(e.toString());
-//     }
-//   }
-//
-//   static Provider parseProviders(String responseBody) {
-//     final Provider provider = Provider.fromJson(json.decode(responseBody));
-//     return provider;
+  static ExternalLocation parseExternalLocation(String responseBody) {
+    final ExternalLocation externalLocation = ExternalLocation.fromJson(json.decode(responseBody));
+    return externalLocation;
+  }
+///---------DocumentType service file method
+  Future<Documenttype> getDocumenttype() async {
+    try {
+      var endpointUrl = ApiUrlConstants.getdocumenttype;
+      // Map<String, String> queryParams = {
+      //   'LoggedInMemberId': '1','PracticeIdList': '1',
+      // };
+      //String queryString = Uri(queryParameters: queryParams).query;
+      var requestUrl = endpointUrl;
+      final response = await http.get(Uri.encodeFull(requestUrl),
+          headers: {"Accept": "application/json"});
+      if (response.statusCode == 200) {
+        Documenttype document = parseDocumentype(response.body);
+        // print(data);
+        return document;
+      } else {
+        throw Exception("Error");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  static Documenttype parseDocumentype(String responseBody) {
+    final Documenttype document = Documenttype.fromJson(json.decode(responseBody));
+    return document;
+  }
   }
 
   // postApiMethod() async {

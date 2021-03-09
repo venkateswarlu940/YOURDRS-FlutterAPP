@@ -34,12 +34,19 @@ class AppStrings {
   static const cancel = "Cancel";
   static const submit = "Submit";
   static const validatorfield="Please enter value";
+  static const emergencyetext="Is emergency add on escription";
 
 }
 class ApiUrlConstants {
-  // for getting Locations//
-  static const getLocation =
-      AppConstants.dioBaseUrl + "api/MasterData/GetLocationsForSelectedPractices";
+  // for getting Pratices//
+  static const getPractices=
+         AppConstants.dioBaseUrl +"api/MasterData/GetLoggedInMemberPractices";
+  // for getting externallocation//
+  static const getExternalLocation=
+      AppConstants.dioBaseUrl +"api/MasterData/GetLocationsForSelectedPractices";
+  //for getting documentType//
+  static const getdocumenttype =
+      AppConstants.dioBaseUrl + "api/MasterData/GetExternalDocumentTypes";
   // for getting Provider
   static const getProviders =
       AppConstants.dioBaseUrl + "api/Schedule/GetAssociatedProvider";
