@@ -64,7 +64,7 @@ class Services {
     try {
       var endpointUrl = ApiUrlConstants.getExternalLocation;
       Map<String, String> queryParams = {
-        'LoggedInMemberId': '1',
+        'LoggedInMemberId': '1','PracticeIdList':'13',
       };
       String queryString = Uri(queryParameters: queryParams).query;
       var requestUrl = endpointUrl + '?' + queryString;
@@ -91,7 +91,7 @@ class Services {
     try {
       var endpointUrl = ApiUrlConstants.getdocumenttype;
       // Map<String, String> queryParams = {
-      //   'LoggedInMemberId': '1','PracticeIdList': '1',
+      //   'LoggedInMemberId': '1'
       // };
       //String queryString = Uri(queryParameters: queryParams).query;
       var requestUrl = endpointUrl;

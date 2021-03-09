@@ -34,22 +34,26 @@ class AppStrings {
   static const cancel = "Cancel";
   static const submit = "Submit";
   static const validatorfield="Please enter value";
-  static const emergencyetext="Is emergency add on escription";
+  static const emergencyetext="Is emergency add on description";
 
 }
 class ApiUrlConstants {
-  // for getting Pratices//
+  // for getting  Pratices
   static const getPractices=
          AppConstants.dioBaseUrl +"api/MasterData/GetLoggedInMemberPractices";
-  // for getting externallocation//
+
+  // for getting ExternalLocation
   static const getExternalLocation=
       AppConstants.dioBaseUrl +"api/MasterData/GetLocationsForSelectedPractices";
+
   //for getting documentType//
   static const getdocumenttype =
       AppConstants.dioBaseUrl + "api/MasterData/GetExternalDocumentTypes";
+
   // for getting Provider
   static const getProviders =
       AppConstants.dioBaseUrl + "api/Schedule/GetAssociatedProvider";
+
   //for getting Schedules
   static const getSchedules =
       AppConstants.dioBaseUrl + "api/Schedule/GetSchedules";

@@ -118,6 +118,36 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
     return Container(
       child: Column(
         children: [
+          CupertinoPageScaffold(
+              child: Center(
+                child: Container(
+                  height: 70,
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  child: RaisedButton(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.camera_alt,
+                            color: CustomizedColors.addressTextColor,
+                            size: 45,
+                          ),
+                          Text(
+                            'Add Image/Take Picture',
+                            style: TextStyle(color:CustomizedColors.addimage_textColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () => _show(context),
+                  ),
+                ),
+              ),
+          ),
+          SizedBox(height: 10),
           ///-----------------------display the camera images to the ui
           Visibility(
             visible: widgetVisible,
@@ -153,7 +183,7 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
                               child: Visibility(
                                 visible: imageVisible,
                                 child: IconButton(
-                                  icon: new Icon(Icons.close,color: CustomizedColors.signInButtonTextColor,),
+                                  icon: new Icon(Icons.close,),
                                   onPressed: ()
                                   {
                                     setState(() {
@@ -174,130 +204,100 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
               ),
             ),
           ),
- ///------------------display the gallery for selecting the images
+          ///------------------display the gallery for selecting the images
           Visibility(
-              visible: visible,
-              child: Column(children: [
-                Builder(
-                  builder: (BuildContext context) => isLoadingPath
-                      ? Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: const CircularProgressIndicator())
-                      : filepath != null || (paths != null && paths.values!=null && paths.values.isNotEmpty)
-                      ? new Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color:
-                        CustomizedColors.homeSubtitleColor,
-                      ),
+            visible: visible,
+            child: Column(children: [
+              Builder(
+                builder: (BuildContext context) => isLoadingPath
+                    ? Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: const CircularProgressIndicator())
+                    : filepath != null || (paths != null && paths.values!=null && paths.values.isNotEmpty)
+                    ? new Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color:
+                      CustomizedColors.homeSubtitleColor,
                     ),
-                    //   padding: const EdgeInsets.only(bottom: 30.0),
-                    height: 100,
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: new ListView.separated(
-                      scrollDirection: Axis.horizontal,
-
-                      itemCount:
-                      paths != null && paths.isNotEmpty
-                          ? paths.length
-                          : 1,
-                      itemBuilder:
-                          (BuildContext context, index) {
-                        final bool isMultiPath =
-                            paths != null && paths.isNotEmpty;
-                        final filePath1 = isMultiPath
-                            ? paths.values
-                            .toList()[index]
-                            .toString()
-                            : filepath;
-                        print(filePath1);
-                        return Container(
-                          color: CustomizedColors.homeSubtitleColor,
-                          margin: const EdgeInsets.all(8),
-                          child: Stack(children: [
-
-                            filePath1 != null
-                                ? Image.file(
-                              File(filePath1),
-                              fit: BoxFit.contain,
-                            )
-                                : Container(),
-
-                            Positioned(
-                              right: -10,
-                              top: -5,
-                              child:  IconButton(
-                                icon: new Icon(Icons.close,
-                                  //color: CustomizedColors.signInButtonTextColor,
-                                ),
-                                onPressed: ()
-                                {
-                                  setState(() {
-                                    // paths.values.toList().removeAt(index);
-                                    var filename= basename(paths.values.toList()[index]);
-                                    print('remove filename $fileName');
-                                    paths.remove(filename);
-                                  });
-                                },
-                              ),
-                            ),
-                          ]),
-                        );
-                      },
-                      separatorBuilder:
-                          (BuildContext context, int index) =>
-                      new Divider(),
-                    ),
-                  )
-                      : new Container(
-
                   ),
-                ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // //storing images into separate folder
-                // RaisedBtn(
-                //     text: AppStrings.submitImages,
-                //     onPressed: () {
-                //       setState(() {
-                //         widgetVisible = false;
-                //         visible = false;
-                //       });
-                //     },
-                //     iconData: Icons.image),
-              ],
-              ),
-          ),
-          SizedBox(height: 15),
-          CupertinoPageScaffold(
-              child: Center(
-                child: Container(
-                  height: 70,
+                  //   padding: const EdgeInsets.only(bottom: 30.0),
+                  height: 100,
                   width: MediaQuery.of(context).size.width * 0.85,
-                  child: RaisedButton(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.camera_alt,
-                            color: CustomizedColors.addressTextColor,
-                            size: 45,
+                  child: new ListView.separated(
+                    scrollDirection: Axis.horizontal,
+
+                    itemCount:
+                    paths != null && paths.isNotEmpty
+                        ? paths.length
+                        : 1,
+                    itemBuilder:
+                        (BuildContext context, index) {
+                      final bool isMultiPath =
+                          paths != null && paths.isNotEmpty;
+                      final filePath1 = isMultiPath
+                          ? paths.values
+                          .toList()[index]
+                          .toString()
+                          : filepath;
+                      print(filePath1);
+                      return Container(
+                        color: CustomizedColors.homeSubtitleColor,
+                        margin: const EdgeInsets.all(8),
+                        child: Stack(children: [
+
+                          filePath1 != null
+                              ? Image.file(
+                            File(filePath1),
+                            fit: BoxFit.contain,
+                          )
+                              : Container(),
+
+                          Positioned(
+                            right: -10,
+                            top: -5,
+                            child:  IconButton(
+                              icon: new Icon(Icons.close,
+                                //color: CustomizedColors.signInButtonTextColor,
+                              ),
+                              onPressed: ()
+                              {
+                                setState(() {
+                                  // paths.values.toList().removeAt(index);
+                                  var filename= basename(paths.values.toList()[index]);
+                                  print('remove filename $fileName');
+                                  paths.remove(filename);
+                                });
+                              },
+                            ),
                           ),
-                          Text(
-                            'Add Image/Take Picture',
-                            style: TextStyle(color:CustomizedColors.addimage_textColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                    onPressed: () => _show(context),
+                        ]),
+                      );
+                    },
+                    separatorBuilder:
+                        (BuildContext context, int index) =>
+                    new Divider(),
                   ),
+                )
+                    : new Container(
+
                 ),
               ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // //storing images into separate folder
+              // RaisedBtn(
+              //     text: AppStrings.submitImages,
+              //     onPressed: () {
+              //       setState(() {
+              //         widgetVisible = false;
+              //         visible = false;
+              //       });
+              //     },
+              //     iconData: Icons.image),
+            ],
+            ),
           ),
         ],
       ),

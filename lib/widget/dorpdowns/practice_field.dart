@@ -50,9 +50,12 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(10),
-      width: 320,
+      //height: 55,
+      //color: Colors.yellow,
+      //height: MediaQuery.of(context).size.height * 0.07,
+      //alignment: Alignment.center,
+      //padding: const EdgeInsets.all(10),
+      width: MediaQuery.of(context).size.width * 0.87,
       child: SearchableDropdown.single(
         hint: Text('Select'),
         // label: Text('Location',style: TextStyle(
@@ -77,6 +80,12 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
             print('practiceList $practiceList');
           });
         },
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black38,
+        ),
+        borderRadius: BorderRadius.circular(6),
       ),
     );
   }

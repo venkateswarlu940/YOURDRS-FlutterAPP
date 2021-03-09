@@ -50,9 +50,10 @@ class DocumentDropDown extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(10),
-      width: 320,
+      // alignment: Alignment.center,
+      // padding: const EdgeInsets.all(10),
+      //height: MediaQuery.of(context).size.height*0.07,
+      width: MediaQuery.of(context).size.width*0.87,
       child: SearchableDropdown.single(
         hint: Text('Select documenttype'),
         // label: Text('',style: TextStyle(
@@ -78,6 +79,12 @@ class DocumentDropDown extends StatefulWidget {
           });
         },
       ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black38,
+          ),
+          borderRadius: BorderRadius.circular(6),
+        )
     );
   }
 }

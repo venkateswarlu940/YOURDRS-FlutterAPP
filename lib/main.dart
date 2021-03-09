@@ -1,6 +1,3 @@
-import 'package:YOURDRS_FlutterAPP/ui/patient_details/external_attachment/allattachment_screen.dart';
-import 'package:YOURDRS_FlutterAPP/ui/patient_details/external_attachment/searchable.dart';
-import 'package:YOURDRS_FlutterAPP/ui/patient_details/external_attachment/submit_new_main.dart';
 import 'package:YOURDRS_FlutterAPP/ui/patient_details/external_attachment/tabbar_main.dart';
 import 'package:flutter/material.dart';
 

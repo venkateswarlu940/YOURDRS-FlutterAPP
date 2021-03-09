@@ -43,7 +43,7 @@ class _SubmitNewState extends State<SubmitNew> {
                 ///--------------------Practice Field
                 Container(
                   child:  Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top:20),
                     child: Text(
                       AppStrings.practice,
                       style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
@@ -54,9 +54,10 @@ class _SubmitNewState extends State<SubmitNew> {
                   width: MediaQuery.of(context).size.width * 0.87,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:6),
+                  padding: const EdgeInsets.only(top: 7),
                   child:  PracticeDropDown(),
                 ),
+
                 ///--------------------Location Field
                 Container(
                   child:  Padding(
@@ -71,7 +72,7 @@ class _SubmitNewState extends State<SubmitNew> {
                   width: MediaQuery.of(context).size.width * 0.87,
                 ),
                   Padding(
-                    padding: const EdgeInsets.only(top:0),
+                   padding: const EdgeInsets.only(top:7),
                     child:  Locations(
                     //   onTapOfLocation: (String newValue) {
                     //    _selectedLocation= newValue;
@@ -83,7 +84,7 @@ class _SubmitNewState extends State<SubmitNew> {
                 ///---------------------Provider Field
                 Container(
                   child:  Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 10),
                     child:Text(
                       AppStrings.provider,
                       style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
@@ -93,8 +94,8 @@ class _SubmitNewState extends State<SubmitNew> {
                   ),
                   width: MediaQuery.of(context).size.width * 0.87,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:6),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.87,
                   child:  ProviderDropDowns(
                     onTapOfProvider: (String newValue) {
                       _selectedProvider= newValue;
@@ -250,7 +251,7 @@ class _SubmitNewState extends State<SubmitNew> {
                   width: MediaQuery.of(context).size.width * 0.87,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:0),
+                  padding: const EdgeInsets.only(top: 7),
                   child:  DocumentDropDown(),
                 ),
                 ///-----------------------emergency Field
