@@ -60,11 +60,11 @@ class Services {
     return practice;
   }
   ///-------------ExternalLocation service method
-  Future<ExternalLocation> getExternalLocation() async {
+  Future<ExternalLocation> getExternalLocation(String PracticeIdList) async {
     try {
       var endpointUrl = ApiUrlConstants.getExternalLocation;
       Map<String, String> queryParams = {
-        'LoggedInMemberId': '1','PracticeIdList':'13',
+        'LoggedInMemberId': '1','PracticeIdList':'$PracticeIdList',
       };
       String queryString = Uri(queryParameters: queryParams).query;
       var requestUrl = endpointUrl + '?' + queryString;
@@ -85,6 +85,38 @@ class Services {
   static ExternalLocation parseExternalLocation(String responseBody) {
     final ExternalLocation externalLocation = ExternalLocation.fromJson(json.decode(responseBody));
     return externalLocation;
+  }
+  ///------------------ExternalProvider
+  Future<ExternalProvider> getExternalProvider(String PracticeLocationId) async {
+    print('getExternalProvider PracticeLocationId $PracticeLocationId');
+    if(PracticeLocationId!=null){
+      try {
+        var endpointUrl = ApiUrlConstants.getExternalProvider;
+        Map<String, String> queryParams = {
+          'LoggedInMemberId': '1','PracticeLocationId':'$PracticeLocationId',
+        };
+        String queryString = Uri(queryParameters: queryParams).query;
+        var requestUrl = endpointUrl + '?' + queryString;
+        final response = await http.get(Uri.encodeFull(requestUrl),
+            headers: {"Accept": "application/json"});
+        if (response.statusCode == 200) {
+          ExternalProvider externalProvider= parseExternalProvider(response.body);
+          // print(data);
+          return externalProvider;
+        } else {
+          throw Exception("Error");
+        }
+      } catch (e) {
+        throw Exception(e.toString());
+      }
+    }
+
+    return null;
+  }
+
+  static ExternalProvider parseExternalProvider(String responseBody) {
+    final ExternalProvider externalProvider = ExternalProvider.fromJson(json.decode(responseBody));
+    return externalProvider;
   }
 ///---------DocumentType service file method
   Future<Documenttype> getDocumenttype() async {

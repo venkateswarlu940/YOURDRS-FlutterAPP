@@ -11,16 +11,25 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 
  class PracticeDropDown extends StatefulWidget {
+   final onTapOfPractice;
+   final String selectedPracticeId;
+   PracticeDropDown({@required this. onTapOfPractice, this.selectedPracticeId});
    @override
    _PracticeState createState() => _PracticeState();
  }
 
  class _PracticeState extends State<PracticeDropDown> {
+   var _currentSelectedValue;
   bool asTabs = false;
   Services apiServices = Services();
   PracticeList practiceList;
   //List<LocationList> _list=[];
   List data = List();
+
+   void initState() {
+     super.initState();
+     _currentSelectedValue = widget.selectedPracticeId;
+   }
 
   @override
   void didChangeDependencies() async {
@@ -55,7 +64,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
       //height: MediaQuery.of(context).size.height * 0.07,
       //alignment: Alignment.center,
       //padding: const EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width * 0.87,
+      width: MediaQuery.of(context).size.width * 0.86,
       child: SearchableDropdown.single(
         hint: Text('Select'),
         // label: Text('Location',style: TextStyle(
@@ -76,8 +85,10 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
         searchHint: new Text('Select ', style: new TextStyle(fontSize: 20)),
         onChanged: (value){
           setState(() {
-            practiceList=value;
-            print('practiceList $practiceList');
+            _currentSelectedValue = value;
+            widget.onTapOfPractice(value);
+            // practiceList=value;
+            // print('practiceList $practiceList');
           });
         },
       ),

@@ -38,14 +38,16 @@ class AppStrings {
 
 }
 class ApiUrlConstants {
-  // for getting  Pratices
+  // for getting  Practices
   static const getPractices=
          AppConstants.dioBaseUrl +"api/MasterData/GetLoggedInMemberPractices";
 
   // for getting ExternalLocation
   static const getExternalLocation=
       AppConstants.dioBaseUrl +"api/MasterData/GetLocationsForSelectedPractices";
-
+  // for getting ExternalProvider
+  static const getExternalProvider=
+     AppConstants.dioBaseUrl +"api/MasterData/GetProvidersForSelectedPracticeLocation";
   //for getting documentType//
   static const getdocumenttype =
       AppConstants.dioBaseUrl + "api/MasterData/GetExternalDocumentTypes";

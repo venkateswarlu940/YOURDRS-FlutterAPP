@@ -53,7 +53,7 @@ class DocumentDropDown extends StatefulWidget {
       // alignment: Alignment.center,
       // padding: const EdgeInsets.all(10),
       //height: MediaQuery.of(context).size.height*0.07,
-      width: MediaQuery.of(context).size.width*0.87,
+      width: MediaQuery.of(context).size.width*0.86,
       child: SearchableDropdown.single(
         hint: Text('Select documenttype'),
         // label: Text('',style: TextStyle(

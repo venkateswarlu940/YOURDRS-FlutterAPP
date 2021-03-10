@@ -1,6 +1,9 @@
 
 import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/practice.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
 import 'package:YOURDRS_FlutterAPP/widget/buttons/cupertino_action_sheet.dart';
 import 'package:YOURDRS_FlutterAPP/widget/buttons/raised_buttons.dart';
 import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/document-field.dart';
@@ -21,9 +24,11 @@ class SubmitNew extends StatefulWidget {
 }
 
 class _SubmitNewState extends State<SubmitNew> {
-  String _selectedLocation;
+  //String _selectedLocation;
   String  _selectedProvider;
   String _selectedDate;
+  String _selectedPractice;
+   String _selectedLocation;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstname=TextEditingController();
@@ -55,7 +60,14 @@ class _SubmitNewState extends State<SubmitNew> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 7),
-                  child:  PracticeDropDown(),
+                  child: PracticeDropDown(
+                    onTapOfPractice: (PracticeList value) {
+                      setState(() {
+                        _selectedPractice = '${value?.id}';
+                        print('from UI: $value');
+                      });
+                    },
+                  ),
                 ),
 
                 ///--------------------Location Field
@@ -74,11 +86,13 @@ class _SubmitNewState extends State<SubmitNew> {
                   Padding(
                    padding: const EdgeInsets.only(top:7),
                     child:  Locations(
-                    //   onTapOfLocation: (String newValue) {
-                    //    _selectedLocation= newValue;
-                    //
-                    //     print('from UI:' + newValue);
-                    // },
+                      onTapOfLocation: (LocationList value) {
+                        print('from UI: $value');
+                        setState(() {
+                          _selectedLocation = '${value?.id}';
+                        });
+                      },
+                      PracticeIdList: _selectedPractice,
                     ),
                 ),
                 ///---------------------Provider Field
@@ -96,12 +110,14 @@ class _SubmitNewState extends State<SubmitNew> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.87,
-                  child:  ProviderDropDowns(
-                    onTapOfProvider: (String newValue) {
-                      _selectedProvider= newValue;
+                  child:
+                  ExternalProviderDropDown(
+                    onTapOfProvider: (ProviderList value) {
+                      _selectedProvider = '${value?.providerId}';
 
-                      print('from UI:' + newValue);
+                      print('from UI: $value');
                     },
+                    PracticeLocationId: _selectedLocation,
                   ),
                 ),
                 ///--------------------First Name Field
