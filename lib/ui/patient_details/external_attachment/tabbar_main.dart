@@ -1,11 +1,11 @@
 import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/ui/patient_details/external_attachment/submit_new_main.dart';
+import 'package:YOURDRS_FlutterAPP/ui/patient_details/external_attachment/submit_new_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'allattachment_screen.dart';
+import 'allattachment/allattachment_screen.dart';
 
 
 ///-----------------------This is ExternalAttachment home page this is the main page for submitne class and all attachment class

@@ -190,7 +190,8 @@ class _CameraActionSheetState extends State<CameraActionSheet> {
                                       image=null;
                                       imageVisible=false;
 
-                                    });
+                                    }
+                                    );
                                   },
                                 ),
                               ),

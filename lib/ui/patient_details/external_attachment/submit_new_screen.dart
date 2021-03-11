@@ -1,16 +1,17 @@
 
 import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/practice.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_document_model.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_location_model.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_practice_model.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_provider_model.dart';
 import 'package:YOURDRS_FlutterAPP/widget/buttons/cupertino_action_sheet.dart';
 import 'package:YOURDRS_FlutterAPP/widget/buttons/raised_buttons.dart';
-import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/document-field.dart';
-import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/location_field.dart';
-import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/practice_field.dart';
-import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/provider.dart';
-import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/dateofbirth.dart';
+import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/external_document_field.dart';
+import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/external_location_field.dart';
+import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/external_practice_field.dart';
+import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/external_provider_field.dart';
+import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/external_dateofbirth_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -29,12 +30,13 @@ class _SubmitNewState extends State<SubmitNew> {
   String _selectedDate;
   String _selectedPractice;
    String _selectedLocation;
+   String _selecteddocumnettype;
+   int _toggleno;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstname=TextEditingController();
   TextEditingController lastname=TextEditingController();
   TextEditingController description= TextEditingController();
-  List<bool> _isSelected = [true, false];
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -63,8 +65,7 @@ class _SubmitNewState extends State<SubmitNew> {
                   child: PracticeDropDown(
                     onTapOfPractice: (PracticeList value) {
                       setState(() {
-                        _selectedPractice = '${value?.id}';
-                        print('from UI: $value');
+                        _selectedPractice= '${value?.id}';
                       });
                     },
                   ),
@@ -88,9 +89,9 @@ class _SubmitNewState extends State<SubmitNew> {
                     child:  Locations(
                       onTapOfLocation: (LocationList value) {
                         print('from UI: $value');
-                        setState(() {
-                          _selectedLocation = '${value?.id}';
-                        });
+                       setState(() {
+                         _selectedLocation = '${value?.id}';
+                       });
                       },
                       PracticeIdList: _selectedPractice,
                     ),
@@ -113,7 +114,9 @@ class _SubmitNewState extends State<SubmitNew> {
                   child:
                   ExternalProviderDropDown(
                     onTapOfProvider: (ProviderList value) {
-                      _selectedProvider = '${value?.providerId}';
+                     setState(() {
+                       _selectedProvider = '${value?.providerId}';
+                     });
 
                       print('from UI: $value');
                     },
@@ -241,7 +244,8 @@ class _SubmitNewState extends State<SubmitNew> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           //color: Colors.yellow,
                           //color: Colors.yellow,
-                          child: DateOfBirth(
+                          child:
+                          DateOfBirth(
                             dobSelect: (String newValue) {
                               _selectedDate= newValue;
 
@@ -268,7 +272,12 @@ class _SubmitNewState extends State<SubmitNew> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 7),
-                  child:  DocumentDropDown(),
+                  child:  DocumentDropDown(
+                    onTapOfDocument: (ExternalDocumentTypesList value){
+                      _selecteddocumnettype='${value}';
+                     // print('from UI:' + value);
+                    },
+                  ),
                 ),
                 ///-----------------------emergency Field
                 Container(
@@ -297,6 +306,7 @@ class _SubmitNewState extends State<SubmitNew> {
                       labels: ['YES', 'NO'],
                       icons: [Icons.check_circle, Icons.cancel_rounded],
                       onToggle: (toggleIndex) {
+                        _toggleno=toggleIndex;
                         print('switched to: $toggleIndex');
                       },
                     ),
@@ -351,20 +361,20 @@ class _SubmitNewState extends State<SubmitNew> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child:
-                  CameraActionSheet(),
+                  CameraActionSheet(
+
+                  ),
                 ),
 
                 ///-------------------buttons
                 Padding(
-                  padding: const EdgeInsets.only(top: 25, left: 20,right: 20),
+                  padding: const EdgeInsets.only(top: 20, left: 20,right: 20),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.80,
-                   // color: Colors.deepOrange,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                    //width: MediaQuery.of(context).size.width * 0.80,
+                    child:
+                       Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //crossAxisAlignment: CrossAxisAlignment.,
                           children: [
                             Container(
                               //color: Colors.grey,
@@ -373,10 +383,18 @@ class _SubmitNewState extends State<SubmitNew> {
                               child: Card(
                                 //color: Colors.blue,
                                 child: RaisedBttn(
-                                  onPressed: () {
-                                    firstname.clear();
-                                    lastname.clear();
-                                    description.clear();
+                                  onPressed: ()
+                                  {
+                                    _formKey.currentState.reset();
+
+                                  // if (_formKey.currentState
+                                  //     .validate()) {
+                                  //   _formKey.currentState.reset();
+                                  //
+                                  // };
+                                    // firstname.clear();
+                                    // lastname.clear();
+                                    // description.clear();
 
                                   },
                                   text: AppStrings.cancel,
@@ -397,15 +415,32 @@ class _SubmitNewState extends State<SubmitNew> {
                                 // color: Colors.blue,
                                   child: RaisedBttn(
                                     onPressed: () {
-                                      if (_formKey.currentState
-                                          .validate()) {
-                                        //  _formKey.currentState.save();
+                                      if (_formKey.currentState.validate())
+                                      {
+                                        print(_selectedPractice);
+                                        print(_selectedLocation);
+                                        print(_selectedProvider);
+                                        print(firstname.text);
+                                        print(lastname.text);
+                                        print(_selectedDate);
+                                        print(_selecteddocumnettype);
+                                        print("$_toggleno");
+                                        print(description.text);
+                                        //print()
+
+
+                                       // print("$")
+                                        // print("$");
+                                        // print("$lastname");
+                                        // print("$description");
+                                       // print('switched to: $toggleIndex');
+                                         //_formKey.currentState.save();
                                         // If the form is valid, display a snackbar. In the real world,
                                         // you'd often call a server or save the information in a database.
-                                        // Scaffold.of(context).showSnackBar(SnackBar(
-                                        //     content: Text(
-                                        //         'Processing Data')));
-                                        // _formKey.currentState.save();
+                                         Scaffold.of(context).showSnackBar(SnackBar(
+                                            content: Text(
+                                                 'Processing Data')));
+                                         _formKey.currentState.save();
                                       };
                                     },
                                     text: AppStrings.submit,
@@ -417,8 +452,6 @@ class _SubmitNewState extends State<SubmitNew> {
                             ),
                           ],
                         ),
-                      ],
-                    ),
                     height: 100,
                   ),
                 ),

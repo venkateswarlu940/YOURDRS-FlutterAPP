@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_location_model.dart';
 
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
@@ -33,7 +33,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
     // data = externalLocation.locationList;
 
 //_currentSelectedValue=data;
-//     setState(() {});
+  //  setState(() {});
   }
 
   List<Widget> get appBarActions {
@@ -70,12 +70,13 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
         //height: MediaQuery.of(context).size.height * 0.07,
         width: MediaQuery.of(context).size.width*0.86,
       child: SearchableDropdown.single(
+        displayClearIcon: false,
         items: data.map((item)
         {
           return DropdownMenuItem<LocationList>(
               child: Text(
-                item.name,
-                overflow: TextOverflow.ellipsis,
+                item.name?? "",
+                //overflow: TextOverflow.ellipsis,
               ),
               value:item
           );

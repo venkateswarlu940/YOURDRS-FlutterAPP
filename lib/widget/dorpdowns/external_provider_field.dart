@@ -1,11 +1,6 @@
-import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
-import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/widget/buttons/dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
-
+import 'package:YOURDRS_FlutterAPP/network/models/external_provider_model.dart';
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
-import 'package:provider/provider.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
  class ExternalProviderDropDown extends StatefulWidget {
    final String PracticeLocationId;
@@ -32,7 +27,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    print('didChangeDependencies PracticeLocationId ${widget.PracticeLocationId}');
+    //print('didChangeDependencies PracticeLocationId ${widget.PracticeLocationId}');
     // ExternalProvider externalProvider = await apiServices.getExternalProvider();
     // data = externalProvider.providerList;
 
@@ -62,13 +57,18 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
             locationId != widget.PracticeLocationId)) {
       locationId = widget.PracticeLocationId;
       apiServices.getExternalProvider(locationId).then((value) {
-        if(value!=null){
-          data = value.providerList;
-          setState(() {});
-        }
+        data=value.providerList;
+        setState(() {
+
+        });
+        // if(value!=null){
+        //   setState(() {
+        //     data = value.providerList;
+        //   });
+        // }
       });
     }
-    print('build PracticeLocationId ${widget.PracticeLocationId}');
+    //print('build PracticeLocationId ${widget.PracticeLocationId}');
     return Container(
       //height: 55,
       //color: Colors.yellow,
@@ -77,7 +77,8 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
       //padding: const EdgeInsets.all(10),
       width: MediaQuery.of(context).size.width * 0.86,
       child: SearchableDropdown.single(
-        hint: Text('Select'),
+        displayClearIcon: false,
+        //hint: Text('Select'),
         // label: Text('Location',style: TextStyle(
         //     fontSize: 16,fontWeight: FontWeight.bold,
         //     color: Colors.black
@@ -85,7 +86,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
         items: data.map((item) {
           return DropdownMenuItem<ProviderList>(
               child: Text(
-                item.displayname,
+                item.displayname??"",
                 overflow: TextOverflow.ellipsis,
               ),
               value:item

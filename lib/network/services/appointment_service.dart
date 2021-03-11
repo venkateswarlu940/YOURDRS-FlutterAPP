@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/document.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/practice.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_document_model.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_practice_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/provider.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_location_model.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_provider_model.dart';
 
 
 class Services {
@@ -89,7 +89,7 @@ class Services {
   ///------------------ExternalProvider
   Future<ExternalProvider> getExternalProvider(String PracticeLocationId) async {
     print('getExternalProvider PracticeLocationId $PracticeLocationId');
-    if(PracticeLocationId!=null){
+    if(PracticeLocationId!=null ){
       try {
         var endpointUrl = ApiUrlConstants.getExternalProvider;
         Map<String, String> queryParams = {

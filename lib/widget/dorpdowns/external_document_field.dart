@@ -1,16 +1,14 @@
-import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
-import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/document.dart';
-import 'package:YOURDRS_FlutterAPP/widget/buttons/dropdown.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_document_model.dart';
 import 'package:flutter/material.dart';
-
-import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
-import 'package:flutter/material.dart';
+
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 
 class DocumentDropDown extends StatefulWidget {
+  final onTapOfDocument;
+  final String selecteddocumnettype;
+  DocumentDropDown({@required this. onTapOfDocument, this.selecteddocumnettype});
    @override
   _DocumentState createState() => _DocumentState();
 }
@@ -21,13 +19,17 @@ class DocumentDropDown extends StatefulWidget {
   ExternalDocumentTypesList externalDocumentTypesList;
  //List<LocationList> _list=[];
   List data = List();
+  var  _currentSelectedValue;
+  void initState() {
+    super.initState();
+    _currentSelectedValue = widget.selecteddocumnettype;
+  }
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
     Documenttype document = await apiServices.getDocumenttype();
     data = document.externalDocumentTypesList;
-
 //_currentSelectedValue=data;
     setState(() {});
   }
@@ -55,6 +57,7 @@ class DocumentDropDown extends StatefulWidget {
       //height: MediaQuery.of(context).size.height*0.07,
       width: MediaQuery.of(context).size.width*0.86,
       child: SearchableDropdown.single(
+        displayClearIcon: false,
         hint: Text('Select documenttype'),
         // label: Text('',style: TextStyle(
         //     fontSize: 16,fontWeight: FontWeight.bold,
@@ -63,7 +66,7 @@ class DocumentDropDown extends StatefulWidget {
         items: data.map((item) {
           return DropdownMenuItem<ExternalDocumentTypesList>(
               child: Text(
-                item.externalDocumentTypeName,
+                item.externalDocumentTypeName??"",
                 overflow: TextOverflow.ellipsis,
               ),
               value:item
@@ -73,9 +76,11 @@ class DocumentDropDown extends StatefulWidget {
         value: externalDocumentTypesList,
         searchHint: new Text('Select ', style: new TextStyle(fontSize: 20)),
         onChanged: (value){
-          print(value);
+          //print(value);
           setState(() {
-
+            externalDocumentTypesList = value;
+             _currentSelectedValue = value;
+             widget.onTapOfDocument(value);
           });
         },
       ),

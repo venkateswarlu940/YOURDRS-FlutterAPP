@@ -1,12 +1,6 @@
-import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
-import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/practice.dart';
-import 'package:YOURDRS_FlutterAPP/widget/buttons/dropdown.dart';
+import 'package:YOURDRS_FlutterAPP/network/models/external_practice_model.dart';
 import 'package:flutter/material.dart';
-
-import 'package:YOURDRS_FlutterAPP/network/models/location.dart';
 import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
-import 'package:flutter/material.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 
@@ -66,6 +60,8 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
       //padding: const EdgeInsets.all(10),
       width: MediaQuery.of(context).size.width * 0.86,
       child: SearchableDropdown.single(
+        displayClearIcon: false,
+        //validator: (value) => value == null ? 'field required' : null,
         hint: Text('Select'),
         // label: Text('Location',style: TextStyle(
         //     fontSize: 16,fontWeight: FontWeight.bold,
@@ -74,7 +70,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
         items: data.map((item) {
           return DropdownMenuItem<PracticeList>(
               child: Text(
-                item.name,
+                item.name??"",
                 overflow: TextOverflow.ellipsis,
               ),
               value:item
@@ -89,7 +85,8 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
             widget.onTapOfPractice(value);
             // practiceList=value;
             // print('practiceList $practiceList');
-          });
+          }
+          );
         },
       ),
       decoration: BoxDecoration(

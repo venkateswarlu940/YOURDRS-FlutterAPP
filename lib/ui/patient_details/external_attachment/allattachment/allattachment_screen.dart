@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'data_part.dart';
+
 
 
 /// Here some set of images can be appeared
@@ -10,7 +12,7 @@ class Allattachment extends StatefulWidget {
 }
 
 class _AllattachmentState extends State<Allattachment> {
-  final List = ["image 100000000000000000000000", "image 200000000000", "image 30000000000", "image4000000000000", "image5000000","image600000000","image70000000000"];
+  final List = ["image 100000000000", "image 200000000000", "image 30000000000", "image4000000000000", "image5000000","image600000000","image70000000000"];
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -19,14 +21,11 @@ class _AllattachmentState extends State<Allattachment> {
           itemBuilder: (BuildContext context, int index) {
             return new InkWell(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   new MaterialPageRoute(
-                //     builder: (context) {
-                //       return new OtherClass(id[index], video[index]);
-                //     },
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) =>DataPart(filename: List[index],)),
+                  );
               },
               child: Container(
 
