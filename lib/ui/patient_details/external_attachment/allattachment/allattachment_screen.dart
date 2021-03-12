@@ -16,7 +16,8 @@ class _AllattachmentState extends State<Allattachment> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: ListView.builder(
+      body:
+      ListView.builder(
           itemCount: List == null ? 0 : List.length,
           itemBuilder: (BuildContext context, int index) {
             return new InkWell(

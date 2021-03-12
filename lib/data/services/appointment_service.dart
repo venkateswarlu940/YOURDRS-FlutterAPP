@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_document_model.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_practice_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_document_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_practice_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:YOURDRS_FlutterAPP/network/models/external_location_model.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_provider_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_location_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_provider_model.dart';
 
 
 class Services {
@@ -60,7 +60,7 @@ class Services {
     return practice;
   }
   ///-------------ExternalLocation service method
-  Future<ExternalLocation> getExternalLocation(String PracticeIdList) async {
+  Future<ExternalLocation> getExternalLocation(int PracticeIdList) async {
     try {
       var endpointUrl = ApiUrlConstants.getExternalLocation;
       Map<String, String> queryParams = {
@@ -87,8 +87,8 @@ class Services {
     return externalLocation;
   }
   ///------------------ExternalProvider
-  Future<ExternalProvider> getExternalProvider(String PracticeLocationId) async {
-    print('getExternalProvider PracticeLocationId $PracticeLocationId');
+  Future<ExternalProvider> getExternalProvider(int PracticeLocationId) async {
+    //print('getExternalProvider PracticeLocationId $PracticeLocationId');
     if(PracticeLocationId!=null ){
       try {
         var endpointUrl = ApiUrlConstants.getExternalProvider;

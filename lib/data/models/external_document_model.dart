@@ -68,9 +68,11 @@ class ExternalDocumentTypesList {
   }
 
   @override
+  @override
   String toString() {
-    return '$id';
+    return 'ExternalDocumentTypesList{externalDocumentTypeName: $externalDocumentTypeName,id:$id}';
   }
+
 // @override
   // String toString() {
   //   return '$id';

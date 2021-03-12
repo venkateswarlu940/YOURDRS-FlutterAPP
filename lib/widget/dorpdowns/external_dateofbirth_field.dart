@@ -1,3 +1,4 @@
+import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +22,8 @@ class _DateOfBirthState extends State<DateOfBirth> {
     );
     if (d != null)
       setState(() {
-        _birthDate = DateFormat.yMMMMd("en_US").format(d);
+        final DateFormat formatter = DateFormat(AppStrings.dateFormatr);
+        _birthDate = formatter.format(d);
         widget.dobSelect(_birthDate);
       });
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_location_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_location_model.dart';
 
-import 'package:YOURDRS_FlutterAPP/network/services/appointment_service.dart';
+import 'package:YOURDRS_FlutterAPP/data/services/appointment_service.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
  class Locations extends StatefulWidget {
-   final String PracticeIdList;
+   final int PracticeIdList;
    final onTapOfLocation;
   const Locations({@required this.onTapOfLocation ,@required this.PracticeIdList});
    @override
@@ -19,7 +19,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
   var _currentSelectedValue;
   //List<LocationList> _list=[];
   List data = List();
-  String practiceId;
+  int practiceId;
   void initState() {
     super.initState();
     _currentSelectedValue = widget.PracticeIdList;
@@ -56,8 +56,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
     if (practiceId == null ||
         (widget.PracticeIdList != null &&
             practiceId != widget.PracticeIdList)) {
-      practiceId = widget.PracticeIdList;
-      apiServices.getExternalLocation(practiceId).then((value) {
+      practiceId = widget.PracticeIdList;apiServices.getExternalLocation(practiceId).then((value) {
         data = value.locationList;
         setState(() {});
       });
@@ -83,7 +82,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
         }).toList(),
         isExpanded: true,
         value: locationsList,
-        searchHint: new Text('Select ', style: new TextStyle(fontSize: 20)),
+        //searchHint: new Text('Select ', style: new TextStyle(fontSize: 20)),
         onChanged: (value){
           setState(() {
             _currentSelectedValue = value;

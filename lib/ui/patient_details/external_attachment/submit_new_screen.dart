@@ -1,10 +1,12 @@
 
 import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_document_model.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_location_model.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_practice_model.dart';
-import 'package:YOURDRS_FlutterAPP/network/models/external_provider_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_document_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_location_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_practice_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/external_provider_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/extrenal_databse_model.dart';
+import 'package:YOURDRS_FlutterAPP/helper/db_helper.dart';
 import 'package:YOURDRS_FlutterAPP/widget/buttons/cupertino_action_sheet.dart';
 import 'package:YOURDRS_FlutterAPP/widget/buttons/raised_buttons.dart';
 import 'package:YOURDRS_FlutterAPP/widget/dorpdowns/external_document_field.dart';
@@ -18,6 +20,8 @@ import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 
+
+
 ///------------------------------This is the SubmitNew class and this class contains all the fields for ExternalAttachment screen
 class SubmitNew extends StatefulWidget {
   @override
@@ -26,17 +30,21 @@ class SubmitNew extends StatefulWidget {
 
 class _SubmitNewState extends State<SubmitNew> {
   //String _selectedLocation;
-  String  _selectedProvider;
-  String _selectedDate;
-  String _selectedPractice;
-   String _selectedLocation;
-   String _selecteddocumnettype;
-   int _toggleno;
+  String  selectedProvidername;
+  String selectedDate;
+  int practiceId;
+  String selectedPractice2;
+   String selectedLocation;
+   String selecteddocumnettype;
+   int LocationId;
+  int providerId1;
+  int documenttypeId;
+   bool toggleVal;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstname=TextEditingController();
   TextEditingController lastname=TextEditingController();
-  TextEditingController description= TextEditingController();
+  TextEditingController Description= TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -65,7 +73,8 @@ class _SubmitNewState extends State<SubmitNew> {
                   child: PracticeDropDown(
                     onTapOfPractice: (PracticeList value) {
                       setState(() {
-                        _selectedPractice= '${value?.id}';
+                        practiceId= value.id;
+                        selectedPractice2='${value.name}';
                       });
                     },
                   ),
@@ -90,10 +99,11 @@ class _SubmitNewState extends State<SubmitNew> {
                       onTapOfLocation: (LocationList value) {
                         print('from UI: $value');
                        setState(() {
-                         _selectedLocation = '${value?.id}';
+                         LocationId=value.id;
+                         selectedLocation = '${value?.name}';
                        });
                       },
-                      PracticeIdList: _selectedPractice,
+                      PracticeIdList: practiceId,
                     ),
                 ),
                 ///---------------------Provider Field
@@ -115,12 +125,13 @@ class _SubmitNewState extends State<SubmitNew> {
                   ExternalProviderDropDown(
                     onTapOfProvider: (ProviderList value) {
                      setState(() {
-                       _selectedProvider = '${value?.providerId}';
+                       providerId1=value.providerId;
+                       selectedProvidername = '${value?.displayname}';
                      });
 
                       print('from UI: $value');
                     },
-                    PracticeLocationId: _selectedLocation,
+                   PracticeLocationId: LocationId,
                   ),
                 ),
                 ///--------------------First Name Field
@@ -149,7 +160,7 @@ class _SubmitNewState extends State<SubmitNew> {
                             controller: firstname,
                             validator: (value) {
                               if (value.isEmpty) {
-                                return AppStrings.validatorfield;
+                                return AppStrings.firstname_validator;
                               }
                               return null;
                             },
@@ -197,7 +208,7 @@ class _SubmitNewState extends State<SubmitNew> {
                             controller: lastname,
                             validator: (value) {
                               if (value.isEmpty) {
-                                return AppStrings.validatorfield;
+                                return AppStrings.lastname_validator;
                               }
                               return null;
                             },
@@ -247,7 +258,7 @@ class _SubmitNewState extends State<SubmitNew> {
                           child:
                           DateOfBirth(
                             dobSelect: (String newValue) {
-                              _selectedDate= newValue;
+                              selectedDate= newValue;
 
                               print('from UI:' + newValue);
                             },
@@ -274,7 +285,10 @@ class _SubmitNewState extends State<SubmitNew> {
                   padding: const EdgeInsets.only(top: 7),
                   child:  DocumentDropDown(
                     onTapOfDocument: (ExternalDocumentTypesList value){
-                      _selecteddocumnettype='${value}';
+                      setState(() {
+                        selecteddocumnettype='${value.externalDocumentTypeName}';
+                        documenttypeId=value.id;
+                      });
                      // print('from UI:' + value);
                     },
                   ),
@@ -284,7 +298,7 @@ class _SubmitNewState extends State<SubmitNew> {
                   child:  Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child:Text(
-                      AppStrings.emergencyetext,
+                      AppStrings.emergency_descrption,
                       style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,
                         color: CustomizedColors.practice_textColor,
                       ),
@@ -305,10 +319,16 @@ class _SubmitNewState extends State<SubmitNew> {
                       inactiveFgColor: Colors.grey[700],
                       labels: ['YES', 'NO'],
                       icons: [Icons.check_circle, Icons.cancel_rounded],
-                      onToggle: (toggleIndex) {
-                        _toggleno=toggleIndex;
-                        print('switched to: $toggleIndex');
-                      },
+                        onToggle: (toggleIndex) {
+                          if (toggleIndex == 0) {
+                            toggleVal = true;
+                          } else if (toggleIndex == 1) {
+                            toggleVal = false;
+                          } else {
+                            return null;
+                          }
+                          print(toggleVal);
+                        },
                     ),
                   ),
                 ),
@@ -335,10 +355,10 @@ class _SubmitNewState extends State<SubmitNew> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           //color: Colors.yellow,
                           child: TextFormField(
-                            controller: description,
+                            controller: Description,
                             validator: (value) {
                               if (value.isEmpty) {
-                                return AppStrings.validatorfield;
+                                return AppStrings.description_validator;
                               }
                               return null;
                             },
@@ -370,14 +390,11 @@ class _SubmitNewState extends State<SubmitNew> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20,right: 20),
                   child: Container(
-                    //width: MediaQuery.of(context).size.width * 0.80,
                     child:
                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          //crossAxisAlignment: CrossAxisAlignment.,
                           children: [
                             Container(
-                              //color: Colors.grey,
                               height: 60,
                               width: 150,
                               child: Card(
@@ -386,16 +403,6 @@ class _SubmitNewState extends State<SubmitNew> {
                                   onPressed: ()
                                   {
                                     _formKey.currentState.reset();
-
-                                  // if (_formKey.currentState
-                                  //     .validate()) {
-                                  //   _formKey.currentState.reset();
-                                  //
-                                  // };
-                                    // firstname.clear();
-                                    // lastname.clear();
-                                    // description.clear();
-
                                   },
                                   text: AppStrings.cancel,
                                   button_color: CustomizedColors
@@ -414,36 +421,48 @@ class _SubmitNewState extends State<SubmitNew> {
                               child: Card(
                                 // color: Colors.blue,
                                   child: RaisedBttn(
-                                    onPressed: () {
+                                    onPressed: () async{
                                       if (_formKey.currentState.validate())
                                       {
-                                        print(_selectedPractice);
-                                        print(_selectedLocation);
-                                        print(_selectedProvider);
-                                        print(firstname.text);
-                                        print(lastname.text);
-                                        print(_selectedDate);
-                                        print(_selecteddocumnettype);
-                                        print("$_toggleno");
-                                        print(description.text);
-                                        //print()
 
-
-                                       // print("$")
-                                        // print("$");
-                                        // print("$lastname");
-                                        // print("$description");
-                                       // print('switched to: $toggleIndex');
-                                         //_formKey.currentState.save();
-                                        // If the form is valid, display a snackbar. In the real world,
-                                        // you'd often call a server or save the information in a database.
-                                         Scaffold.of(context).showSnackBar(SnackBar(
-                                            content: Text(
-                                                 'Processing Data')));
-                                         _formKey.currentState.save();
+                                        DatabaseHelper.db.insertExternalAttachmentData(
+                                            ExternalAttachment(
+                                                 practiceId:practiceId,
+                                                practiceName:selectedPractice2,
+                                                locationId: LocationId,
+                                                locationName: selectedLocation ,
+                                               providerId: providerId1,
+                                              providerName: selectedProvidername,
+                                              externalDocumentType: selecteddocumnettype,
+                                              externalDocumentTypeId: documenttypeId,
+                                              patientFirstName: firstname.text,
+                                              patientLastName: lastname.text,
+                                              patientDOB:selectedDate,
+                                               isEmergencyAddOn:toggleVal?? 'NA',
+                                              description:Description.text,
+                                            )
+                                        );
+                                        Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                CircularProgressIndicator(
+                                                  backgroundColor:Colors.blue,
+                                                  valueColor: AlwaysStoppedAnimation(
+                                                      CustomizedColors.accentColor),
+                                                ),
+                                                SizedBox(
+                                                  width: 15,
+                                                ),
+                                                Text(AppStrings.submiting_datatext),
+                                              ],
+                                            ),
+                                          ),
+                                        );
                                       };
                                     },
-                                    text: AppStrings.submit,
+                                    text: AppStrings.submit_buttontext,
                                     button_color: CustomizedColors
                                         .submitbuttonColor,
                                   )
