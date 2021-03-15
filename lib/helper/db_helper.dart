@@ -95,26 +95,26 @@ class DatabaseHelper {
     try {
       var externalDict = await db.insert(AppStrings.dbTableExternalAttachment, {
         AppStrings.col_External_Id: eDict.id,
-        AppStrings.col_ExternalAttachmentId:eDict.externalAttachmentId,
-        AppStrings.col_ExternalPatientFname: eDict.patientFirstName,
-        AppStrings.col_ExternalPatientLname: eDict.patientLastName,
-        AppStrings.col_ExternalCreatedDate: eDict.createdDate,
-        AppStrings.col_ExternalPatient_DOB: eDict.patientDOB,
-        AppStrings.col_ExternalMemberId: eDict.memberId,
-        AppStrings.col_ExternalStatusId: eDict.statusId,
-        AppStrings.col_ExternalUploadedToServer: eDict.uploadedToServer,
-        AppStrings.col_ExternalDisplayFileName: eDict.displayFileName,
+        AppStrings.col_ExternalAttachmentId:eDict.externalattachmentid,
+        AppStrings.col_ExternalPatientFname: eDict.patientfirstname,
+        AppStrings.col_ExternalPatientLname: eDict.patientlastname,
+        AppStrings.col_ExternalCreatedDate: eDict.createddate,
+        AppStrings.col_ExternalPatient_DOB: eDict.patientdob,
+        AppStrings.col_ExternalMemberId: eDict.memberid,
+        AppStrings.col_ExternalStatusId: eDict.statusid,
+        AppStrings.col_ExternalUploadedToServer: eDict.uploadedtoserver,
+        AppStrings.col_ExternalDisplayFileName: eDict.displayfilename,
         AppStrings.col_ExternalDOS: eDict.dos,
-        AppStrings.col_ExternalPracticeId: eDict.practiceId,
-        AppStrings.col_ExternalPracticeName:eDict.practiceName,
-        AppStrings.col_ExternalLocationId: eDict.locationId,
-        AppStrings.col_ExternalLocationName:eDict.locationName,
-        AppStrings.col_ExternalProviderId:eDict.providerId,
-        AppStrings.col_ExternalProviderName:eDict.providerName,
-        AppStrings.col_ExternalAppointmentTypeId: eDict.appointmentTypeId,
-        AppStrings.col_ExternalAppointmentType:eDict.appointmentType,
-        AppStrings.col_ExternalisEmergencyAddOn: eDict.isEmergencyAddOn,
-        AppStrings.col_Ex_ExternalDocumentTypeId: eDict.externalDocumentTypeId,
+        AppStrings.col_ExternalPracticeId: eDict.practiceid,
+        AppStrings.col_ExternalPracticeName:eDict.practicename,
+        AppStrings.col_ExternalLocationId: eDict.locationid,
+        AppStrings.col_ExternalLocationName:eDict.locationname,
+        AppStrings.col_ExternalProviderId:eDict.providerid,
+        AppStrings.col_ExternalProviderName:eDict.providername,
+        AppStrings.col_ExternalAppointmentTypeId: eDict.appointmenttypeid,
+        AppStrings.col_ExternalAppointmentType:eDict.appointmenttype,
+        AppStrings.col_ExternalisEmergencyAddOn: eDict.isemergencyaddon,
+        AppStrings.col_Ex_ExternalDocumentTypeId: eDict.externaldocumenttypeid,
         AppStrings.col_ExternalDes: eDict.description
       });
       // print("insertAudio $externalDict");
@@ -185,9 +185,11 @@ class DatabaseHelper {
   // }
 
   //Fetch all the records
-  Future<List<ExternalAttachment>> getAllExtrenalAttachment() async {
+  Future<List<ExternalAttachment>> getAllExtrenalAttachmentList() async {
     var db = await database;
-    // final res = await db.rawQuery("SELECT * FROM EMPLOYEE");
+   // final res=await db.rawQuery("SELECT externalattachmentlocal.id,externalattachmentlocal.displayFileName");
+     //final res = await db.rawQuery("SELECT * FROM ");
+    //await dbClient.rawQuery("SELECT * FROM $TABLE");
 
     //Exception handling
     try {
@@ -197,18 +199,18 @@ class DatabaseHelper {
 
       List<ExternalAttachment> list = res.isNotEmpty
           ? res.map((c) {
-        print('res.map $c');
-
-        var user = ExternalAttachment.fromMap(c);
-        return user;
-      }).toList()
+              print('res.map $c');
+              var user = ExternalAttachment.fromMap(c);
+              return user;
+            }).toList()
           : [];
-      print(list);
+
+      // print(list);
       return list;
     } catch (e) {
       print(e.toString());
     }
   }
 //close the db
-// db.close();
+ //db.close();
 }

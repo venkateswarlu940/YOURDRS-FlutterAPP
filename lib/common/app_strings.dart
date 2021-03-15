@@ -68,6 +68,7 @@ class AppStrings {
   static const submiting_datatext="Submitting Data";
   static const select_documenttype="Select";
   static const selectpractice_text="select";
+  static const currentdate_text="yyyyMMddHHmmss";
 
   //Dictations
   static const textDictation = "Dictations";
@@ -118,29 +119,30 @@ class AppStrings {
 
   //External attachment columns
   static const col_External_Id = 'id';
-  static const col_ExternalAttachmentId = 'externalattachmentid';
-  static const col_ExternalPatientFname = 'patientfirstname';
-  static const col_ExternalPatientLname = 'patientlastname';
-  static const col_ExternalCreatedDate = 'createddate';
-  static const col_ExternalPatient_DOB = 'patientdob';
-  static const col_ExternalAppointmentType = 'appointmenttype';
-  static const col_ExternalMemberId = 'memberid';
-  static const col_ExternalStatusId = 'statusid';
-  static const col_ExternalUploadedToServer = 'uploadedtoserver';
-  static const col_ExternalDisplayFileName = 'displayfilename';
-  static const col_ExternalDOS = 'dos';
-  static const col_ExternalFileName = 'filename';
-  static const col_ExternalPracticeId = 'practiceid';
-  static const col_ExternalPracticeName = 'practicename';
-  static const col_ExternalLocationId = 'locationid';
-  static const col_ExternalLocationName = 'locationname';
-  static const col_ExternalProviderId = 'providerid';
-  static const col_ExternalProviderName = 'providername ';
-  static const col_ExternalAppointmentTypeId = 'appointmenttypeid';
+  static const col_ExternalAttachmentId = 'externalAttachmentId';
+  static const col_ExternalPatientFname = 'patientFirstName';
+  static const col_ExternalPatientLname = 'patientLastName';
+  static const col_ExternalCreatedDate = 'createdDate';
+  static const col_ExternalPatient_DOB = 'patientDOB';
+  static const col_ExternalAppointmentType = 'appointmentType';
+  static const col_ExternalMemberId = 'memberId';
+  static const col_ExternalStatusId = 'statusId';
+  static const col_ExternalUploadedToServer = 'uploadedToServer';
+  static const col_ExternalDisplayFileName = 'displayFileName';
+  static const col_ExternalDOS = 'DOS';
+  static const col_ExternalFileName = 'fileName';
+  static const col_ExternalPracticeId = 'practiceId';
+  static const col_ExternalPracticeName = 'practiceName';
+  static const col_ExternalLocationId = 'locationId';
+  static const col_ExternalLocationName = 'locationName';
+  static const col_ExternalProviderId = 'providerId';
+  static const col_ExternalProviderName = 'providerName ';
+  static const col_ExternalAppointmentTypeId = 'appointmentTypeId';
   static const col_ExternalDocumentType = 'externaldocumenttype';
-  static const col_ExternalisEmergencyAddOn = 'isemergencyaddon';
-  static const col_Ex_ExternalDocumentTypeId = 'externaldocumenttypeid';
+  static const col_ExternalisEmergencyAddOn = 'isEmergencyAddOn';
+  static const col_Ex_ExternalDocumentTypeId = 'externalDocumentTypeId';
   static const col_ExternalDes= 'description';
+
 
   //photo list table columns
   static const col_PhotoList_Id = 'id';
@@ -156,7 +158,7 @@ class AppStrings {
 
   //Queries
   static const deleteOlderFiles = "DELETE FROM Audio_Table WHERE date(createdDate) < date('now')";
-  static const selectQuery = "SELECT * FROM Audio_Table";
+  static const selectQuery = 'SELECT * FROM externalattachmentlocal';
 
   // static const deleteFiles = "DELETE Audio_Table.id, Audio_Table.createddate,"
   //     "date(Audio_Table.createddate) dt, date('now') FROM 'Audio_Table' where date(Audio_Table.createddate) < date('now')";

@@ -1,61 +1,72 @@
+import 'package:YOURDRS_FlutterAPP/data/models/extrenal_databse_model.dart';
+import 'package:YOURDRS_FlutterAPP/helper/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'data_part.dart';
 
-
-
 /// Here some set of images can be appeared
-class Allattachment extends StatefulWidget {
-  @override
-  _AllattachmentState createState() => _AllattachmentState();
-}
+ class Allattachment extends StatefulWidget {
+   @override
+   _AllattachmentState createState() => _AllattachmentState();
+ }
 
-class _AllattachmentState extends State<Allattachment> {
-  final List = ["image 100000000000", "image 200000000000", "image 30000000000", "image4000000000000", "image5000000","image600000000","image70000000000"];
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body:
-      ListView.builder(
-          itemCount: List == null ? 0 : List.length,
-          itemBuilder: (BuildContext context, int index) {
-            return new InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (context) =>DataPart(filename: List[index],)),
-                  );
-              },
-              child: Container(
-
-                child: Card(
-                  child: ListTile(
-                    leading:   Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(padding: new EdgeInsets.all(3.0)),
-                        Text(List[index],
-                          style: new TextStyle(fontWeight: FontWeight.bold,
-                              color: Colors.black
-                          ),
+ class _AllattachmentState extends State<Allattachment> {
+   List<ExternalAttachment>attachments =[];
+   @override
+   Widget build(BuildContext context) {
+    // TODO: implement build
+    return
+      FutureBuilder(
+      future: DatabaseHelper.db.getAllExtrenalAttachmentList(),
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        print(snapshot.hasData);
+        if(!snapshot.hasData){
+          return Center(
+           // child: CircularProgressIndicator(),
+          );
+        }
+        else {
+          // print('FutureBuilder '+snapshot.data.toList().toString());
+          attachments = snapshot.data as List<ExternalAttachment>;
+          return ListView.builder(
+              itemCount: attachments.length,
+              itemBuilder: (BuildContext context, int index) {
+                return new InkWell(
+                  onTap: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context)=>DataPart(displayfilename: attachments[index].displayfilename,)),
+                    );
+                  },
+                  child: Container(
+                    child: Card(
+                      child: ListTile(
+                        leading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(padding: new EdgeInsets.all(3.0)),
+                            Text(
+                                "${attachments[index].displayfilename}",style:TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon:Icon(Icons.cloud_upload_rounded,size: 40),
-                      onPressed: (){
-                        //
-                      },
-                    ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.cloud_upload_rounded, size: 40),
+                          onPressed: () {
+                            //
+                          },
+                        ),
 
+                      ),
+                    ),
                   ),
-                ),
-                height: 75,
-              ),
-            );
-          }),
+                );
+              }
+          );
+        }
+        }
     );
   }
-}
+
+ }

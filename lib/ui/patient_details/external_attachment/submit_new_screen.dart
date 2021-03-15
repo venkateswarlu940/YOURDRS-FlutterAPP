@@ -40,13 +40,14 @@ class _SubmitNewState extends State<SubmitNew> {
   int providerId1;
   int documenttypeId;
    bool toggleVal;
-
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstname=TextEditingController();
   TextEditingController lastname=TextEditingController();
   TextEditingController Description= TextEditingController();
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat(AppStrings.currentdate_text).format(now);
     return ListView(
       children: [
         Form(
@@ -427,19 +428,20 @@ class _SubmitNewState extends State<SubmitNew> {
 
                                         DatabaseHelper.db.insertExternalAttachmentData(
                                             ExternalAttachment(
-                                                 practiceId:practiceId,
-                                                practiceName:selectedPractice2,
-                                                locationId: LocationId,
-                                                locationName: selectedLocation ,
-                                               providerId: providerId1,
-                                              providerName: selectedProvidername,
-                                              externalDocumentType: selecteddocumnettype,
-                                              externalDocumentTypeId: documenttypeId,
-                                              patientFirstName: firstname.text,
-                                              patientLastName: lastname.text,
-                                              patientDOB:selectedDate,
-                                               isEmergencyAddOn:toggleVal?? 'NA',
+                                                 practiceid:practiceId,
+                                                practicename:selectedPractice2,
+                                                locationid: LocationId,
+                                                locationname: selectedLocation ,
+                                               providerid: providerId1,
+                                              providername: selectedProvidername,
+                                              externaldocumenttype: selecteddocumnettype,
+                                              externaldocumenttypeid: documenttypeId,
+                                              patientfirstname: firstname.text,
+                                              patientlastname: lastname.text,
+                                              patientdob:selectedDate,
+                                               isemergencyaddon:toggleVal?? false,
                                               description:Description.text,
+                                              displayfilename: selecteddocumnettype + "_10_"+ formattedDate,
                                             )
                                         );
                                         Scaffold.of(context).showSnackBar(
