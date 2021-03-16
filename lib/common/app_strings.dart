@@ -208,7 +208,7 @@ class AppStrings {
       'filename TEXT DEFAULT NULL,'
       'patientfirstname TEXT DEFAULT NULL,'
       'patientlastname TEXT DEFAULT NULL,'
-      'patientdob INT DEFAULT NULL,'//changing
+      'patientdob TEXT DEFAULT NULL,'//changing
       'memberid INT DEFAULT NULL,'
       'statusid INT DEFAULT NULL,'
       'uploadedtoserver NUMERIC DEFAULT 0,'

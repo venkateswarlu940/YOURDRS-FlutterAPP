@@ -101,7 +101,7 @@ class ExternalAttachment {
     providername = map['providername'];
     appointmenttypeid = map['appointmenttypeid'];
     appointmenttype = map['appointmenttype'];
-    externaldocumenttype=map['externaldocumenttype'];//changing
+    externaldocumenttype=map['externaldocumenttype'];//changingn
     isemergencyaddon = map['isEmergencyAddOn'];//pending
     externaldocumenttypeid = map['externalDocumentTypeId'];
     description = map['description'];

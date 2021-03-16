@@ -30,6 +30,7 @@ class CustomizedColors {
   static const appbarColor = Color.fromRGBO(92,136,217, 1);
   static const dateiconColor = Color.fromRGBO(92,136,217, 1);
   static const bordersColor = Color.fromRGBO(92,136,217, 1);
+  static const AppBarColor = Color.fromRGBO(92,136,217, 1);
   static const whitetoggleTextColor = Colors.white;
 
 }

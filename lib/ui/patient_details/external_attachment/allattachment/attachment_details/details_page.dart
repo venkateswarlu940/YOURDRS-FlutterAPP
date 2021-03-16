@@ -1,3 +1,4 @@
+import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
 import 'package:YOURDRS_FlutterAPP/data/models/extrenal_databse_model.dart';
 import 'package:YOURDRS_FlutterAPP/helper/db_helper.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ class _DataPartState extends State<DataPart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 80,
+        backgroundColor: CustomizedColors.AppBarColor,
+        toolbarHeight: 70,
         title: Text(widget.displayfilename),
         centerTitle: true,
       ),
