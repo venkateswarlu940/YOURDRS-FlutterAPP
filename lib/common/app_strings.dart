@@ -54,7 +54,7 @@ class AppStrings {
   static const  hint_fisrtname = "Enter Name";
   static const  hint_lastname = "Enter Name";
   static const  dateofbirth = "Date of Birth";
-  static const dateFormatr = 'yyyyMMdd';
+  static const dateFormatr = 'yMd';
   static const  documenttype = "Document Type*";
   static const  emergency_descrption = "Is emergency add on description";
   static const  yes_buttontext = "yes";
@@ -208,7 +208,7 @@ class AppStrings {
       'filename TEXT DEFAULT NULL,'
       'patientfirstname TEXT DEFAULT NULL,'
       'patientlastname TEXT DEFAULT NULL,'
-      'patientdob DATETIME DEFAULT NULL,'
+      'patientdob INT DEFAULT NULL,'//changing
       'memberid INT DEFAULT NULL,'
       'statusid INT DEFAULT NULL,'
       'uploadedtoserver NUMERIC DEFAULT 0,'

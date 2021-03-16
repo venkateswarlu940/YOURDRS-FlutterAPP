@@ -114,6 +114,7 @@ class DatabaseHelper {
         AppStrings.col_ExternalAppointmentTypeId: eDict.appointmenttypeid,
         AppStrings.col_ExternalAppointmentType:eDict.appointmenttype,
         AppStrings.col_ExternalisEmergencyAddOn: eDict.isemergencyaddon,
+        AppStrings.col_ExternalDocumentType:eDict.externaldocumenttype,//changing
         AppStrings.col_Ex_ExternalDocumentTypeId: eDict.externaldocumenttypeid,
         AppStrings.col_ExternalDes: eDict.description
       });

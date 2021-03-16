@@ -10,7 +10,7 @@ class ExternalAttachment {
   String filename; //name of the audio file
   String patientfirstname;
   String patientlastname;
-  String patientdob;//pending
+  String patientdob;
   String dos;
   String externaldocumenttype;
   int practiceid;
@@ -21,7 +21,7 @@ class ExternalAttachment {
   String providername;
   int appointmenttypeid;
   String appointmenttype;
-  bool isemergencyaddon;//pending
+  int isemergencyaddon;//pending
   int externaldocumenttypeid;
   String description;
 
@@ -36,7 +36,7 @@ class ExternalAttachment {
     this.filename,
     this.patientfirstname,
     this.patientlastname,
-    this.patientdob,//pending
+    this.patientdob,
     this.dos,
     this.externaldocumenttype,
     this.practiceid,
@@ -63,7 +63,7 @@ class ExternalAttachment {
       'filename':filename,
       'patientfirstname':patientfirstname,
       'patientlastname':patientlastname,
-      'patientDOB':patientdob,//pending
+      'patientdob':patientdob,
       'dos':dos,
       'practiceid':practiceid,
       'practicename':practicename,//
@@ -91,7 +91,7 @@ class ExternalAttachment {
     filename = map['filename'];
     patientfirstname = map['patientfirstname'];
     patientlastname = map['patientlastname'];
-    patientdob = map['patientDOB'];//pending
+    patientdob = map['patientdob'];
     dos = map['dos'];
     practiceid = map['practiceid'];
     practicename = map['practicename'];
@@ -101,6 +101,7 @@ class ExternalAttachment {
     providername = map['providername'];
     appointmenttypeid = map['appointmenttypeid'];
     appointmenttype = map['appointmenttype'];
+    externaldocumenttype=map['externaldocumenttype'];//changing
     isemergencyaddon = map['isEmergencyAddOn'];//pending
     externaldocumenttypeid = map['externalDocumentTypeId'];
     description = map['description'];

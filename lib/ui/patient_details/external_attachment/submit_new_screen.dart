@@ -39,7 +39,7 @@ class _SubmitNewState extends State<SubmitNew> {
    int LocationId;
   int providerId1;
   int documenttypeId;
-   bool toggleVal;
+   int toggleVal;
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstname=TextEditingController();
   TextEditingController lastname=TextEditingController();
@@ -261,7 +261,7 @@ class _SubmitNewState extends State<SubmitNew> {
                             dobSelect: (String newValue) {
                               selectedDate= newValue;
 
-                              print('from UI:' + newValue);
+                              //print('from UI:' + newValue);
                             },
                           ),
                         ),
@@ -286,10 +286,12 @@ class _SubmitNewState extends State<SubmitNew> {
                   padding: const EdgeInsets.only(top: 7),
                   child:  DocumentDropDown(
                     onTapOfDocument: (ExternalDocumentTypesList value){
-                      setState(() {
-                        selecteddocumnettype='${value.externalDocumentTypeName}';
-                        documenttypeId=value.id;
-                      });
+                      selecteddocumnettype=value.externalDocumentTypeName;
+                      documenttypeId=value.id;
+                      // setState(() {
+                      //  selecteddocumnettype='${value.externalDocumentTypeName}';
+                      //   documenttypeId=value.id;
+                      // });
                      // print('from UI:' + value);
                     },
                   ),
@@ -322,9 +324,9 @@ class _SubmitNewState extends State<SubmitNew> {
                       icons: [Icons.check_circle, Icons.cancel_rounded],
                         onToggle: (toggleIndex) {
                           if (toggleIndex == 0) {
-                            toggleVal = true;
+                            toggleVal = 0;
                           } else if (toggleIndex == 1) {
-                            toggleVal = false;
+                            toggleVal = 1;
                           } else {
                             return null;
                           }
@@ -431,7 +433,7 @@ class _SubmitNewState extends State<SubmitNew> {
                                                  practiceid:practiceId,
                                                 practicename:selectedPractice2,
                                                 locationid: LocationId,
-                                                locationname: selectedLocation ,
+                                                locationname: selectedLocation,
                                                providerid: providerId1,
                                               providername: selectedProvidername,
                                               externaldocumenttype: selecteddocumnettype,
@@ -439,7 +441,7 @@ class _SubmitNewState extends State<SubmitNew> {
                                               patientfirstname: firstname.text,
                                               patientlastname: lastname.text,
                                               patientdob:selectedDate,
-                                               isemergencyaddon:toggleVal?? false,
+                                               isemergencyaddon:toggleVal?? true,
                                               description:Description.text,
                                               displayfilename: selecteddocumnettype + "_10_"+ formattedDate,
                                             )

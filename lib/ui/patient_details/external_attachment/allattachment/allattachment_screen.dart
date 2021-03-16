@@ -3,7 +3,7 @@ import 'package:YOURDRS_FlutterAPP/helper/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'data_part.dart';
+import 'attachment_details/details_page.dart';
 
 /// Here some set of images can be appeared
  class Allattachment extends StatefulWidget {
@@ -16,8 +16,7 @@ import 'data_part.dart';
    @override
    Widget build(BuildContext context) {
     // TODO: implement build
-    return
-      FutureBuilder(
+    return FutureBuilder(
       future: DatabaseHelper.db.getAllExtrenalAttachmentList(),
       builder: (BuildContext context, AsyncSnapshot snapshot){
         print(snapshot.hasData);
@@ -32,8 +31,9 @@ import 'data_part.dart';
           return ListView.builder(
               itemCount: attachments.length,
               itemBuilder: (BuildContext context, int index) {
-                return new InkWell(
-                  onTap: () async {
+                return
+                  InkWell(
+                    onTap: () async {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context)=>DataPart(displayfilename: attachments[index].displayfilename,)),
