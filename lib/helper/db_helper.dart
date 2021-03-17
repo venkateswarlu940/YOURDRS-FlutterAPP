@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
 import 'package:YOURDRS_FlutterAPP/data/models/extrenal_databse_model.dart';
+import 'package:YOURDRS_FlutterAPP/data/models/photo_list.dart';
 import 'package:path/path.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -34,6 +35,9 @@ class DatabaseHelper {
 
           await db.execute(AppStrings.tableExternalAttachment
           );
+          await db.execute(AppStrings.tblPhotoList
+          );
+
         });
   }
 
@@ -126,29 +130,29 @@ class DatabaseHelper {
     }
   }
 
-  //insert photo list
-  // insertPhotoList(PhotoList photoList) async {
-  //   var db = await database;
-  //
-  //   //exception handling
-  //   try{
-  //     var externalPhoroList = await db.insert(AppStrings.dbTablePhotoList, {
-  //       AppStrings.col_PhotoList_Id:photoList.id,
-  //       AppStrings.col_PhotoListDictationId:photoList.dictationLocalId,
-  //       AppStrings.col_PhotoListExternalAttachmentId:photoList.externalattachmentlocalid,
-  //       AppStrings.col_PhotoListAttachmentName:photoList.attachmentname,
-  //       AppStrings.col_PhotoListAttachmentSizeBytes:photoList.attachmentsizebytes,
-  //       AppStrings.col_PhotoListAttachmentAttachmentType:photoList.attachmenttype,
-  //       AppStrings.col_PhotoListAttachmentFileName:photoList.fileName,
-  //       AppStrings.col_PhotoListAttachmentPhysicalFileName:photoList.physicalfilename,
-  //       AppStrings.col_PhotoListAttachmentCreatedDate:photoList.createddate
-  //     });
-  //     return externalPhoroList;
-  //
-  //   }catch (e){
-  //     print(e.toString());
-  //   }
-  // }
+//  insert photo list
+  insertPhotoList(PhotoList photoList) async {
+    var db = await database;
+
+    //exception handling
+    try{
+      var externalPhoroList = await db.insert(AppStrings.dbTablePhotoList, {
+        AppStrings.col_PhotoList_Id:photoList.id,
+        AppStrings.col_PhotoListDictationId:photoList.dictationLocalId,
+        AppStrings.col_PhotoListExternalAttachmentId:photoList.externalattachmentlocalid,
+        AppStrings.col_PhotoListAttachmentName:photoList.attachmentname,
+        AppStrings.col_PhotoListAttachmentSizeBytes:photoList.attachmentsizebytes,
+        AppStrings.col_PhotoListAttachmentAttachmentType:photoList.attachmenttype,
+        AppStrings.col_PhotoListAttachmentFileName:photoList.fileName,
+        AppStrings.col_PhotoListAttachmentPhysicalFileName:photoList.physicalfilename,
+        AppStrings.col_PhotoListAttachmentCreatedDate:photoList.createddate
+      });
+      return externalPhoroList;
+
+    }catch (e){
+      print(e.toString());
+    }
+  }
 
   // deleteAllAudios() async {
   //   var db = await database;
@@ -160,14 +164,14 @@ class DatabaseHelper {
   // }
 
 
-  // Delete all Audios files
+  // //Delete all Audios files
   // deleteAllAudios() async {
   //   var db = await database;
   //   var res = await db.rawDelete(AppStrings.deleteOlderFiles);
   //   print("Records deleted: $res");
   //   return res;
   // }
-
+  //
   // deleteAllAudios({int minutes = 5}) async {
   //   var db = await database;
   //   // DateTime now = new DateTime.now();
@@ -177,13 +181,13 @@ class DatabaseHelper {
   // }
 
 
-  // //Update the records
-  // Future<int> updateRecords() async {
-  //   final db = await database;
-  //   final updateRes = await db.rawUpdate("UPDATE dictationlocal WHERE 'id=?', whereArgs: [dictationlocal.id]");
-  //   print(updateRes);
-  //   return updateRes;
-  // }
+  //Update the records
+  Future<int> updateRecords() async {
+    final db = await database;
+    final updateRes = await db.rawUpdate("UPDATE dictationlocal WHERE 'id=?', whereArgs: [dictationlocal.id]");
+    print(updateRes);
+    return updateRes;
+  }
 
   //Fetch all the records
   Future<List<ExternalAttachment>> getAllExtrenalAttachmentList() async {

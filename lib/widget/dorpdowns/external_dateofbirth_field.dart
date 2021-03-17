@@ -22,7 +22,7 @@ class _DateOfBirthState extends State<DateOfBirth> {
     );
     if (d != null)
       setState(() {
-        final DateFormat formatter = DateFormat(AppStrings.dateFormatr);
+        final DateFormat formatter = DateFormat(AppStrings.dateFormat);
         _birthDate = formatter.format(d);
         widget.dobSelect(_birthDate);
       });

@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'custome_component.dart';
 class DataPart extends StatefulWidget {
   var displayfilename;
-
-  DataPart({ this.displayfilename}) ;
+  var practicename;
+  var locationname;
+  var externaldocumenttype;
+  var providername;
+  var patientfirstname;
+  var patientdob;
+  var isemergencyaddon;
+  var description;
+  DataPart({ this.displayfilename,this.practicename,this.locationname,this.externaldocumenttype,this.providername,this.patientfirstname,this.patientdob,this.isemergencyaddon,this.description}) ;
   @override
   _DataPartState createState() => _DataPartState();
 }
@@ -23,44 +30,40 @@ class _DataPartState extends State<DataPart> {
         title: Text(widget.displayfilename),
         centerTitle: true,
       ),
-      body: FutureBuilder(
-          future: DatabaseHelper.db.getAllExtrenalAttachmentList(),
-          builder: (BuildContext context, AsyncSnapshot snapshot){
-            attachments = snapshot.data as List<ExternalAttachment>;
-            print("Attachments"+attachments.toString());
-            return ListView.builder(
-                itemCount: attachments.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return
+      body:ListView(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Case Detail',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.grey),),
+              ),
+              CustomTile(text1: "Practice",text2: widget.practicename),
+              Divider(color: Colors.blue,height: 0,),
+              CustomTile(text1: "Location",text2: widget.locationname),
+              Divider(color: Colors.blue,height: 0,),
+              CustomTile(text1: "Doc Type",text2:widget.externaldocumenttype),
+              Divider(color: Colors.blue,height: 0,),
+              CustomTile(text1: "Provider",text2: widget.providername),
+              Divider(color: Colors.blue,height: 0,thickness: 0.60,),
+              CustomTile(text1: "Name",text2: widget.patientfirstname),
+              Divider(color: Colors.blue,height: 0,thickness: 0.60,),
+              CustomTile(text1: "DOB",text2:widget.patientdob),
+              Divider(color: Colors.blue,height: 0,),
+              CustomTile(text1: "Is emergency add on description",text2:widget.isemergencyaddon.toString()),
+              Divider(color: Colors.blue,height: 0,),
+              CustomTile(text1: "Description",text2: widget.description),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Uploaded Attachments',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.grey),),
+              ),
+              Card(child: ListTile(leading: Text('djskdjhsjhjhsd.jpg'),trailing: Icon(Icons.remove_red_eye),))
+            ],
+          ),
+        ],
+      ),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Case Detail',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.grey),),
-                        ),
-                        CustomTile(text1: "Practice",text2: "${attachments[index].practicename}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "Location",text2: "${attachments[index].locationname}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "Doc Type",text2:"${attachments[index].externaldocumenttype}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "Provider",text2: "${attachments[index].providername}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "Name",text2: "${attachments[index].practicename}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "DOB",text2:"${attachments[index].patientdob}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "Is emergency \n add on \ndescription",text2:"${attachments[index].isemergencyaddon}",),
-                        Divider(color: Colors.black,height: 0,),
-                        CustomTile(text1: "Description",text2: "${attachments[index].description}"),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Uploaded Attachments',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.grey),),
-                        ),
-                        Card(child: ListTile(leading: Text('djskdjhsjhjhsd.jpg'),trailing: Icon(Icons.remove_red_eye),))
-                      ],);
                   // Card(
                   //   child:
                   //   ListTile(
@@ -79,10 +82,10 @@ class _DataPartState extends State<DataPart> {
                   //     ),
                   //   ),
                   // ),
-                }
+               // }
             );
-          }
-      ),
-    );
+          //}
+    //   ),
+    // );
   }
 }

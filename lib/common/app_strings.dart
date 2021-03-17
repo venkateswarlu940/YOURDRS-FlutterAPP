@@ -54,7 +54,7 @@ class AppStrings {
   static const  hint_fisrtname = "Enter Name";
   static const  hint_lastname = "Enter Name";
   static const  dateofbirth = "Date of Birth";
-  static const dateFormatr = 'yMd';
+  static const dateFormat = "yMd";//changes
   static const  documenttype = "Document Type*";
   static const  emergency_descrption = "Is emergency add on description";
   static const  yes_buttontext = "yes";
@@ -69,6 +69,9 @@ class AppStrings {
   static const select_documenttype="Select";
   static const selectpractice_text="select";
   static const currentdate_text="yyyyMMddHHmmss";
+  static const folderName = "YourDrsImages";//changes
+  static const name = "DefaultFName,DefaultLName ";//changes
+  static const imageFormat = ".jpeg";//changes
 
   //Dictations
   static const textDictation = "Dictations";
@@ -82,7 +85,7 @@ class AppStrings {
   static const dbTableExternalAttachment = 'externalattachmentlocal';
   static const dbTablePhotoList = 'photolistlocal';
 
-  //Patient dictation and Manual dictation columns
+//  Patient dictation and Manual dictation columns
   static const colId = 'id';
   // static const col_AudioFile = 'col_audioFile';
   static const col_dictationId = 'dictationid';

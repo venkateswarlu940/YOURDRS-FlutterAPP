@@ -2,7 +2,7 @@ class ExternalAttachment {
   int id;
   int externalattachmentid;
   int memberid ;
-  int StatusId;
+ // int StatusId;
   bool uploadedtoserver;
   int statusid;
   String createddate;
@@ -66,14 +66,14 @@ class ExternalAttachment {
       'patientdob':patientdob,
       'dos':dos,
       'practiceid':practiceid,
-      'practicename':practicename,//
+      'practicename':practicename,
       'locationid':locationid,
       'locationname':locationname,
       'providerid':providerid,
       'providername':providername,
       'appointmenttypeid':appointmenttypeid,
       'appointmenttype':appointmenttype,
-      'isemergencyaddon':isemergencyaddon,//pending
+      'isemergencyaddon':isemergencyaddon,
       'externaldocumenttype':externaldocumenttype,
       'externaldocumenttypeid':externaldocumenttypeid,
       'description':description,
@@ -101,9 +101,9 @@ class ExternalAttachment {
     providername = map['providername'];
     appointmenttypeid = map['appointmenttypeid'];
     appointmenttype = map['appointmenttype'];
-    externaldocumenttype=map['externaldocumenttype'];//changingn
-    isemergencyaddon = map['isEmergencyAddOn'];//pending
-    externaldocumenttypeid = map['externalDocumentTypeId'];
+    externaldocumenttype=map['externaldocumenttype'];
+    isemergencyaddon = map['isemergencyaddon'];//changing
+    externaldocumenttypeid = map['externaldocumenttypeid'];
     description = map['description'];
   }
 
