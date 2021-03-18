@@ -14,7 +14,8 @@ class DataPart extends StatefulWidget {
   var patientdob;
   var isemergencyaddon;
   var description;
-  DataPart({ this.displayfilename,this.practicename,this.locationname,this.externaldocumenttype,this.providername,this.patientfirstname,this.patientdob,this.isemergencyaddon,this.description}) ;
+  var attachmenttype;
+  DataPart({ this.displayfilename,this.practicename,this.locationname,this.externaldocumenttype,this.providername,this.patientfirstname,this.patientdob,this.isemergencyaddon,this.description,this.attachmenttype}) ;
   @override
   _DataPartState createState() => _DataPartState();
 }
@@ -58,7 +59,32 @@ class _DataPartState extends State<DataPart> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Uploaded Attachments',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.grey),),
               ),
-              Card(child: ListTile(leading: Text('djskdjhsjhjhsd.jpg'),trailing: Icon(Icons.remove_red_eye),))
+              Card(
+                child: ListTile(
+                  //leading: Text('djskdjhsjhjhsd.jpg'),
+                  trailing: Container(
+                    child: InkWell(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (_) => Dialog(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: ExactAssetImage(
+                                          widget.attachmenttype),
+                                      fit: BoxFit.cover)),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Icon(Icons.remove_red_eye),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ],

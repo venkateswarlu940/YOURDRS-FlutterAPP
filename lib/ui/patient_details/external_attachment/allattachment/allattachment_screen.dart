@@ -17,8 +17,10 @@ class _AllattachmentState extends State<Allattachment> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return FutureBuilder(
+    return
+      FutureBuilder(
         future: DatabaseHelper.db.getAllExtrenalAttachmentList(),
+         //:DatabaseHelper.db.getAllImages(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.hasData);
           if (!snapshot.hasData) {
@@ -28,6 +30,7 @@ class _AllattachmentState extends State<Allattachment> {
           } else {
             // print('FutureBuilder '+snapshot.data.toList().toString());
             attachments = snapshot.data as List<ExternalAttachment>;
+
             return ListView.builder(
                 itemCount: attachments.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -50,6 +53,7 @@ class _AllattachmentState extends State<Allattachment> {
                                   isemergencyaddon:
                                       attachments[index].isemergencyaddon,
                                   description: attachments[index].description,
+                                //physicalfilename: attachments.[index].attachmenttype,
                                 )),
                       );
                     },
@@ -77,8 +81,10 @@ class _AllattachmentState extends State<Allattachment> {
                       ),
                     ),
                   );
-                });
+                }
+                );
+            }
           }
-        });
+        );
   }
 }

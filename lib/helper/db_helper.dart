@@ -188,6 +188,35 @@ class DatabaseHelper {
     print(updateRes);
     return updateRes;
   }
+  Future<int> delteImages() async {
+    final db = await database;
+    final updateRes = await db.rawDelete('DELETE FROM photolistlocal');
+    print(updateRes);
+    return updateRes;
+  }
+  Future<List<PhotoList>> getAllImages() async {
+    var db = await database;
+
+    //Exception handling
+    try {
+      var res = await db.rawQuery(AppStrings.selectPhotoQuery);
+
+      // print('data is saving $res');
+
+      List<PhotoList> list = res.isNotEmpty
+          ? res.map((c) {
+        print('res.map $c');
+
+        var user = PhotoList.fromMap(c);
+        return user;
+      }).toList()
+          : [];
+      print(list);
+      return list;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   //Fetch all the records
   Future<List<ExternalAttachment>> getAllExtrenalAttachmentList() async {
@@ -216,6 +245,7 @@ class DatabaseHelper {
       print(e.toString());
     }
   }
+
 //close the db
  //db.close();
 }

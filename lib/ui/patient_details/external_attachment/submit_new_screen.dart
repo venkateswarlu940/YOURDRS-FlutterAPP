@@ -66,6 +66,7 @@ class _SubmitNewState extends State<SubmitNew> {
   int providerId1;
   int documenttypeId;
    int toggleVal;
+   var imageIndex=0;
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstname=TextEditingController();
   TextEditingController lastname=TextEditingController();
@@ -754,6 +755,26 @@ class _SubmitNewState extends State<SubmitNew> {
                                             attachmenttype: AppStrings.imageFormat,
                                             physicalfilename: '${image.path}'
                                         ));
+                                      // for (int i = 0; i < paths.keys
+                                      //     .toList()
+                                      //     .length; imageIndex++) {
+                                      //   DatabaseHelper.db
+                                      //       .insertPhotoList(PhotoList(
+                                      //     // dictationLocalId:
+                                      //     //     '',
+                                      //       attachmentname: '${firstname.text ??
+                                      //           ''}' + "_" + '${formatted}' +
+                                      //           '_' + ('${paths.keys
+                                      //           .toList()[imageIndex]}'),
+                                      //       attachmenttype: AppStrings
+                                      //           .imageFormat,
+                                      //       // "_" +
+                                      //       // AppStrings.imageFormat,
+                                      //       createddate: '${DateTime.now()}',
+                                      //       physicalfilename: '${paths.values
+                                      //           .toList()[imageIndex]}'
+                                      //   ));
+                                      // }
                                         Scaffold.of(context).showSnackBar(
                                           SnackBar(
                                             content: Row(
@@ -778,8 +799,7 @@ class _SubmitNewState extends State<SubmitNew> {
                                       // }
                                     },
                                     text: AppStrings.submit_buttontext,
-                                    button_color: CustomizedColors
-                                        .submitbuttonColor,
+                                    button_color: CustomizedColors.submitbuttonColor,
                                   )
                               ),
                               //color: Colors.blue,

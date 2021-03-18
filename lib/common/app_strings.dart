@@ -158,10 +158,10 @@ class AppStrings {
   static const col_PhotoListAttachmentPhysicalFileName = 'physicalfilename';
   static const col_PhotoListAttachmentCreatedDate = 'createddate';
 
-
   //Queries
   static const deleteOlderFiles = "DELETE FROM Audio_Table WHERE date(createdDate) < date('now')";
   static const selectQuery = 'SELECT * FROM externalattachmentlocal';
+  static const selectPhotoQuery = "SELECT physicalfilename FROM  photolistlocal";
 
   // static const deleteFiles = "DELETE Audio_Table.id, Audio_Table.createddate,"
   //     "date(Audio_Table.createddate) dt, date('now') FROM 'Audio_Table' where date(Audio_Table.createddate) < date('now')";
@@ -243,7 +243,9 @@ class AppStrings {
       'fileName TEXT DEFAULT NULL,'
       'physicalfilename TEXT DEFAULT NULL,'
       'createddate DATETIME DEFAULT NULL'
+  //   'FOREIGN KEY(id) REFERENCES dictationlocal(id)'
       ')';
+
 
 
   //Dictation type list
