@@ -58,7 +58,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
             practiceId != widget.PracticeIdList)) {
       practiceId = widget.PracticeIdList;apiServices.getExternalLocation(practiceId).then((value) {
         data = value.locationList;
-        //setState(() {});
+        setState(() {});
       });
     }
 

@@ -42,7 +42,7 @@
 //                           context,
 //                           MaterialPageRoute(
 //                               builder: (context) => DataPart(
-//                                 displayfilename: attachments[index].attachmenttype,
+//                                 physicalfilename: attachments[index].physicalfilename,
 //                                 // practicename: attachments[index].practicename,
 //                                 // locationname: attachments[index].locationname,
 //                                 // externaldocumenttype:

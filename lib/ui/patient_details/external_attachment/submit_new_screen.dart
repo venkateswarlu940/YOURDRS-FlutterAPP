@@ -754,7 +754,8 @@ class _SubmitNewState extends State<SubmitNew> {
                                             createddate: '${DateTime.now()}',
                                             attachmenttype: AppStrings.imageFormat,
                                             physicalfilename: '${image.path}'
-                                        ));
+                                        )
+                                        );
                                       // for (int i = 0; i < paths.keys
                                       //     .toList()
                                       //     .length; imageIndex++) {

@@ -73,8 +73,7 @@ class _DataPartState extends State<DataPart> {
                               height: MediaQuery.of(context).size.height * 0.7,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      image: ExactAssetImage(
-                                          widget.attachmenttype),
+                                    //  image: ExactAssetImage(widget.),
                                       fit: BoxFit.cover)),
                             ),
                           ),
